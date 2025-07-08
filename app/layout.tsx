@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { headers } from 'next/headers';
 import { cookieToInitialState, type State } from 'wagmi';
 
+import Layout from '@/components/common/global-layout';
 import { Providers } from './providers';
 import { getConfig } from './wagmi';
 
@@ -35,7 +36,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers initialState={initialState}>333{children}33</Providers>
+        <Providers initialState={initialState}>
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
     </html>
   );

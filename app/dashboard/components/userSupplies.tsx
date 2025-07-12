@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+import AssetsItem from '@/components/common/AssetsItem';
 import CollapsibleCard from '@/components/common/CollapsibleCard';
 import {
   Table,
@@ -40,7 +41,9 @@ export default function UserSupplies({ reserves }: UserSuppliesProps) {
         <TableBody>
           {reserves?.map((reserve, index) => (
             <TableRow key={index}>
-              <TableCell className="font-medium">{reserve.symbol}</TableCell>
+              <TableCell className="font-medium">
+                <AssetsItem symbol={reserve.symbol} />
+              </TableCell>
               <TableCell>{reserve.availableLiquidity?.toString() || '0'}</TableCell>
               <TableCell>{((Number(reserve.liquidityRate) / 1e27) * 100).toFixed(2)}%</TableCell>
               <TableCell className="text-right">

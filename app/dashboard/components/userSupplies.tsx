@@ -10,22 +10,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-// 定义Reserve类型，使用readonly匹配合约返回的数据
-interface Reserve {
-  readonly symbol: string;
-  readonly availableLiquidity: bigint;
-  readonly liquidityRate: bigint;
-  readonly usageAsCollateralEnabled: boolean;
-  readonly [key: string]: unknown;
-}
+import { AssetRow } from '@/lib/aggregators';
 
 interface UserSuppliesProps {
   children?: ReactNode;
-  reserves?: readonly Reserve[];
+  supplies?: readonly AssetRow[];
 }
 
-export default function UserSupplies({ reserves }: UserSuppliesProps) {
+export default function UserSupplies({ supplies }: UserSuppliesProps) {
   return (
     <CollapsibleCard title="User Supplies">
       <Table>
@@ -39,16 +31,14 @@ export default function UserSupplies({ reserves }: UserSuppliesProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {reserves?.map((reserve, index) => (
+          {supplies?.map((supply, index) => (
             <TableRow key={index}>
               <TableCell className="font-medium">
-                <AssetsItem symbol={reserve.symbol} />
+                <AssetsItem symbol={supply.symbol} />
               </TableCell>
-              <TableCell>{reserve.availableLiquidity?.toString() || '0'}</TableCell>
-              <TableCell>{((Number(reserve.liquidityRate) / 1e27) * 100).toFixed(2)}%</TableCell>
-              <TableCell className="text-right">
-                {reserve.usageAsCollateralEnabled ? 'Yes' : 'No'}
-              </TableCell>
+              <TableCell>{supply.wallet}</TableCell>
+              <TableCell>{supply.supplyAPY}</TableCell>
+              <TableCell className="text-right">{supply.canCollateral ? 'Yes' : 'No'}</TableCell>
               <TableCell className="text-right"></TableCell>
             </TableRow>
           ))}

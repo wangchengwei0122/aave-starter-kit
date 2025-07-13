@@ -22,7 +22,10 @@ export default function Dashboard() {
     <div>
       <Banner />
       <div className="flex -m-11 gap-4 w-[1400px] mx-auto">
-        <div className="w-1/2 space-y-4"></div>
+        <div className="w-1/2 space-y-4">
+          <UserSupplies supplies={supplies} />
+          <AssetsToSupply />
+        </div>
         <div className="w-1/2 space-y-4">
           <UserSupplies supplies={supplies} />
           <AssetsToSupply />

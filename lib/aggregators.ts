@@ -14,8 +14,8 @@ export interface AssetRow {
   supplied: number;
   debtVar: number;
 
-  supplyAPY: number;
-  borrowAPY: number;
+  supplyAPY: number | string;
+  borrowAPY: number | string;
 
   canCollateral: boolean;
   isolated: boolean;
@@ -56,8 +56,10 @@ export function aggregateRows(
         decimals,
       ),
 
-      supplyAPY: rayToApy(r.liquidityRate),
-      borrowAPY: rayToApy(r.variableBorrowRate),
+      // supplyAPY: rayToApy(r.liquidityRate),
+      // borrowAPY: rayToApy(r.variableBorrowRate),
+      supplyAPY: formatPercent(rayToApy(r.liquidityRate)), // "1,054.93 %"
+      borrowAPY: formatPercent(rayToApy(r.variableBorrowRate)),
 
       canCollateral:
         r.isActive &&

@@ -1,9 +1,11 @@
 'use client';
 
 import { useAaveCtx } from '@/context/AaveMarketCtx';
+import AssetsToBorrow from './components/AssetsToBorrow';
 import AssetsToSupply from './components/AssetsToSupply';
 import Banner from './components/Banner';
-import UserSupplies from './components/userSupplies';
+import UserBorrows from './components/UserBorrows';
+import UserSupplies from './components/UserSupplies';
 
 export default function Dashboard() {
   // const { address } = useAccount();
@@ -23,12 +25,12 @@ export default function Dashboard() {
       <Banner />
       <div className="flex -m-11 gap-4 w-[1400px] mx-auto">
         <div className="w-1/2 space-y-4">
-          <UserSupplies supplies={supplies} />
-          <AssetsToSupply />
+          <UserSupplies />
+          <AssetsToSupply supplies={supplies} />
         </div>
         <div className="w-1/2 space-y-4">
-          <UserSupplies supplies={supplies} />
-          <AssetsToSupply />
+          <UserBorrows />
+          <AssetsToBorrow />
         </div>
       </div>
     </div>

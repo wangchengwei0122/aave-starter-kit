@@ -10,9 +10,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export default function UserSupplies() {
+export default function UserBorrows() {
   return (
-    <CollapsibleCard title="User Supplies">
+    <CollapsibleCard title="User Borrows">
       <Table>
         <TableHeader>
           <TableRow>

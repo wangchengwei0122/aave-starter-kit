@@ -50,8 +50,12 @@ export default function AssetsToSupply({ supplies }: AssetsSupplieProps) {
                 )}
               </TableCell>
               <TableCell>
-                <Button disabled={!supply.canCollateral}>Supply</Button>
-                <Button disabled={!supply.canCollateral}>Supply</Button>
+                <Button className="mr-1" disabled={!supply.canCollateral}>
+                  Supply
+                </Button>
+                <Button className="bg-gray-100" disabled={!supply.canCollateral}>
+                  ...
+                </Button>
               </TableCell>
             </TableRow>
           ))}

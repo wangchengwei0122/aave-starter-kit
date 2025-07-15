@@ -12,7 +12,6 @@ import {
   AggregatedReserveData,
   BaseCurrencyInfo,
   UserReserveData,
-  UserReservesData,
   UserWalletAddresses,
   UserWalletBalances,
 } from '@/lib/types-generated';
@@ -55,12 +54,30 @@ export function useAaveMarket() {
       UserReserveData[],
       [UserWalletAddresses, UserWalletBalances],
     ];
+  // console.log('reserves', reserves);
+  // console.log('baseCurrency', baseCurrency);
+  // console.log('userReserves', userReserves);
+  // console.log('walletAssets', walletAssets);
+  // console.log('walletBalances', walletBalances);
+
+  // const walletMap = new Map<string, bigint>(
+  //   walletAssets.map((a: string, i: number) => [a.toLowerCase(), walletBalances[i] as bigint]),
+  // );
+
+  // const reservesWithoutWeth = reserves.filter((r) => r.symbol !== 'WETH');
+  const wethOrigin = reserves.find((r) => r.symbol === 'WETH');
+  const finalReserves = wethOrigin
+    ? [
+        { ...wethOrigin, name: 'Ethereum', symbol: 'ETH' },
+        ...reserves.filter((r) => r.symbol !== 'WETH'),
+      ]
+    : reserves;
 
   const walletMap = new Map<string, bigint>(
     walletAssets.map((a: string, i: number) => [a.toLowerCase(), walletBalances[i] as bigint]),
   );
 
-  const rows = aggregateRows(reserves, userReserves, walletMap, baseCurrency);
+  const rows = aggregateRows(finalReserves, userReserves, walletMap, baseCurrency);
 
   return { rows, ...rest };
 }

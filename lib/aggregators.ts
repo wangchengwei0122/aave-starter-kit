@@ -1,7 +1,7 @@
 // 你可从 address-book 类型中 re-export
 
 import { RAY } from './constants';
-import { balanceToNum, formatPercent, rayToApy, rayToPercent } from './format';
+import { balanceToNum, formatPercent, rayToApy } from './format';
 import { AggregatedReserveData, BaseCurrencyInfo, UserReserveData } from './types-generated';
 
 export interface AssetRow {
@@ -32,6 +32,11 @@ export function aggregateRows(
   const rows: AssetRow[] = [];
 
   for (const r of reserves) {
+    const canSupply = r.isActive && !r.isFrozen && r.symbol !== 'GHO'; // GHO 只能借
+    if (!canSupply) {
+      continue;
+    }
+
     const u = userMap.get(r.underlyingAsset);
     const walletBal = walletMap.get(r.underlyingAsset.toLowerCase()) ?? BigInt(0);
 
@@ -55,9 +60,6 @@ export function aggregateRows(
         u ? (u.scaledVariableDebt * r.variableBorrowIndex) / RAY : BigInt(0),
         decimals,
       ),
-
-      // supplyAPY: rayToApy(r.liquidityRate),
-      // borrowAPY: rayToApy(r.variableBorrowRate),
       supplyAPY: formatPercent(rayToApy(r.liquidityRate)), // "1,054.93 %"
       borrowAPY: formatPercent(rayToApy(r.variableBorrowRate)),
 

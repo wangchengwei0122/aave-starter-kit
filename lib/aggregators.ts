@@ -75,3 +75,61 @@ export function aggregateRows(
 
   return rows;
 }
+
+export function aggregateBorrowRows(
+  reserves: readonly AggregatedReserveData[],
+  userReserves: readonly UserReserveData[],
+  walletMap: Map<string, bigint>,
+  base: BaseCurrencyInfo,
+): AssetRow[] {
+  const userMap = new Map(userReserves.map((u) => [u.underlyingAsset, u]));
+  const rows: AssetRow[] = [];
+
+  // 只显示官网的5个可借资产
+  const allowedBorrowAssets = ['GHO', 'WBTC', 'LINK', 'USDT', 'EURS'];
+
+  for (const r of reserves) {
+    const canBorrow =
+      r.isActive && !r.isFrozen && r.borrowingEnabled && allowedBorrowAssets.includes(r.symbol);
+    if (!canBorrow) {
+      continue;
+    }
+
+    const u = userMap.get(r.underlyingAsset);
+    const walletBal = walletMap.get(r.underlyingAsset.toLowerCase()) ?? BigInt(0);
+
+    const decimals = Number(r.decimals);
+    const priceUsd =
+      (Number(r.priceInMarketReferenceCurrency) * Number(base.marketReferenceCurrencyPriceInUsd)) /
+      1e8;
+
+    // 计算可用流动性
+    const availableLiquidity = balanceToNum(r.availableLiquidity, decimals);
+
+    rows.push({
+      address: r.underlyingAsset,
+      symbol: r.symbol,
+      decimals,
+      priceUsd,
+
+      wallet: balanceToNum(walletBal, decimals),
+      supplied: availableLiquidity, // 使用可用流动性作为 supplied 字段
+      debtVar: balanceToNum(
+        u ? (u.scaledVariableDebt * r.variableBorrowIndex) / RAY : BigInt(0),
+        decimals,
+      ),
+      supplyAPY: formatPercent(rayToApy(r.liquidityRate)),
+      borrowAPY: formatPercent(rayToApy(r.variableBorrowRate)),
+
+      canCollateral:
+        r.isActive &&
+        !r.isFrozen &&
+        r.usageAsCollateralEnabled &&
+        r.baseLTVasCollateral > BigInt(0),
+      isolated: !r.borrowableInIsolation,
+      frozen: r.isFrozen || !r.isActive,
+    });
+  }
+
+  return rows;
+}

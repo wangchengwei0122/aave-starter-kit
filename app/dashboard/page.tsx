@@ -10,8 +10,9 @@ import UserSupplies from './components/UserSupplies';
 export default function Dashboard() {
   // const { address } = useAccount();
 
-  const { rows: supplies, isLoading, error } = useAaveCtx();
+  const { rows: supplies, borrowRows, isLoading, error } = useAaveCtx();
   console.log('rows', supplies);
+  console.log('borrowRows', borrowRows);
 
   if (isLoading) {
     return <div>正在加载数据...</div>;
@@ -30,7 +31,7 @@ export default function Dashboard() {
         </div>
         <div className="w-1/2 space-y-4">
           <UserBorrows />
-          <AssetsToBorrow />
+          <AssetsToBorrow borrows={borrowRows} />
         </div>
       </div>
     </div>

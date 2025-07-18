@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { Check, Minus } from 'lucide-react';
+import { AlertTriangle, Check, Minus } from 'lucide-react';
 
 import AssetsItem from '@/components/common/AssetsItem';
 import CollapsibleCard from '@/components/common/CollapsibleCard';
@@ -40,7 +40,14 @@ export default function AssetsToSupply({ supplies }: AssetsSupplieProps) {
               <TableCell className="font-medium">
                 <AssetsItem symbol={supply.symbol} />
               </TableCell>
-              <TableCell className="text-center">{supply.wallet}</TableCell>
+              <TableCell className="text-center">
+                <div className="flex items-center justify-center gap-1">
+                  <span>{supply.wallet.toFixed(7)}</span>
+                  {supply.wallet < 0.01 && supply.wallet > 0 && (
+                    <AlertTriangle className="text-red-500" size={12} />
+                  )}
+                </div>
+              </TableCell>
               <TableCell>{supply.supplyAPY}</TableCell>
               <TableCell className="text-center">
                 {supply.canCollateral ? (

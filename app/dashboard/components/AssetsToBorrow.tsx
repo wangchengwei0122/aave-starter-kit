@@ -1,6 +1,10 @@
 'use client';
 
+import { ReactNode } from 'react';
+
+import AssetsItem from '@/components/common/AssetsItem';
 import CollapsibleCard from '@/components/common/CollapsibleCard';
+import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -9,26 +13,46 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { AssetRow } from '@/lib/aggregators';
 
-export default function AssetsToBorrow() {
+interface AssetsToBorrowProps {
+  children?: ReactNode;
+  borrows?: readonly AssetRow[];
+}
+
+export default function AssetsToBorrow({ borrows }: AssetsToBorrowProps) {
   return (
     <CollapsibleCard title="Assets To Borrow">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead className="w-[100px]">Asset</TableHead>
+            <TableHead>Available</TableHead>
+            <TableHead>APY, variable</TableHead>
+            <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">$250.00</TableCell>
-          </TableRow>
+          {borrows?.map((borrow, index) => (
+            <TableRow key={index}>
+              <TableCell className="font-medium">
+                <AssetsItem symbol={borrow.symbol} />
+              </TableCell>
+              <TableCell className="text-center">
+                <div className="flex flex-col">
+                  <span>{borrow.supplied.toFixed(2)}</span>
+                  <span className="text-sm text-gray-500">
+                    ${(borrow.supplied * borrow.priceUsd).toFixed(2)}
+                  </span>
+                </div>
+              </TableCell>
+              <TableCell>{borrow.borrowAPY}</TableCell>
+              <TableCell>
+                <Button className="mr-1">Borrow</Button>
+                <Button className="bg-gray-100">Details</Button>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </CollapsibleCard>

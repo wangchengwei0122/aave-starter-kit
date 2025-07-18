@@ -2,7 +2,7 @@ import { IUiPoolDataProvider_ABI } from '@bgd-labs/aave-address-book/abis';
 import { useAccount, useReadContracts } from 'wagmi';
 
 import { WalletBalanceProvider_ABI } from '@/abis/WalletBalanceProvider_ABI';
-import { aggregateRows } from '@/lib/aggregators';
+import { aggregateBorrowRows, aggregateRows } from '@/lib/aggregators';
 import {
   POOL_ADDRESSES_PROVIDER,
   UI_POOL_DATA_PROVIDER,
@@ -46,7 +46,7 @@ export function useAaveMarket() {
     ],
   });
 
-  if (!data) return { rows: [], ...rest };
+  if (!data) return { rows: [], borrowRows: [], ...rest };
 
   const [[reserves, baseCurrency], userReserves, [walletAssets, walletBalances]] =
     data as unknown as [
@@ -78,6 +78,7 @@ export function useAaveMarket() {
   );
 
   const rows = aggregateRows(finalReserves, userReserves, walletMap, baseCurrency);
+  const borrowRows = aggregateBorrowRows(finalReserves, userReserves, walletMap, baseCurrency);
 
-  return { rows, ...rest };
+  return { rows, borrowRows, ...rest };
 }

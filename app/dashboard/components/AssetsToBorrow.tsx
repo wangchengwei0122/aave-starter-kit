@@ -48,8 +48,8 @@ export default function AssetsToBorrow({ borrows }: AssetsToBorrowProps) {
               </TableCell>
               <TableCell>{borrow.borrowAPY}</TableCell>
               <TableCell>
-                <Button className="mr-1">Borrow</Button>
-                <Button className="bg-gray-100">Details</Button>
+                <Button className="mr-2">Borrow</Button>
+                <Button variant="outline">Details</Button>
               </TableCell>
             </TableRow>
           ))}

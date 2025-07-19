@@ -6,6 +6,7 @@ import { AlertTriangle, Check, Minus } from 'lucide-react';
 import AssetsItem from '@/components/common/AssetsItem';
 import CollapsibleCard from '@/components/common/CollapsibleCard';
 import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import {
   Table,
   TableBody,
@@ -57,12 +58,21 @@ export default function AssetsToSupply({ supplies }: AssetsSupplieProps) {
                 )}
               </TableCell>
               <TableCell>
-                <Button className="mr-1" disabled={!supply.canCollateral}>
+                <Button className="mr-2" disabled={!supply.canCollateral}>
                   Supply
                 </Button>
-                <Button className="bg-gray-100" disabled={!supply.canCollateral}>
+                {/* <Button variant="outline" disabled={!supply.canCollateral}>
                   ...
-                </Button>
+                </Button> */}
+
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" disabled={!supply.canCollateral}>
+                      ...
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80"></PopoverContent>
+                </Popover>
               </TableCell>
             </TableRow>
           ))}

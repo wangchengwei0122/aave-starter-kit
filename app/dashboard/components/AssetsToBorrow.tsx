@@ -22,7 +22,7 @@ interface AssetsToBorrowProps {
 
 export default function AssetsToBorrow({ borrows }: AssetsToBorrowProps) {
   return (
-    <CollapsibleCard title="Assets To Borrow">
+    <CollapsibleCard title="Assets to borrow">
       <Table>
         <TableHeader>
           <TableRow>

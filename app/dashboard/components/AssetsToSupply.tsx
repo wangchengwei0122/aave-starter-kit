@@ -24,7 +24,7 @@ interface AssetsSupplieProps {
 
 export default function AssetsToSupply({ supplies }: AssetsSupplieProps) {
   return (
-    <CollapsibleCard title="Assets To Supply">
+    <CollapsibleCard title="Assets to supply">
       <Table>
         <TableHeader>
           <TableRow>

@@ -133,3 +133,21 @@ export function aggregateBorrowRows(
 
   return rows;
 }
+
+export function aggregateUserSupplies(
+  userReserves: UserReserveData[],
+  reserves: AggregatedReserveData[],
+) {
+  const userSupplies = userReserves
+    .filter((userReserve) => userReserve.scaledATokenBalance > 0)
+    .map((userReserve) => {
+      const reserve = reserves.find((r) => r.underlyingAsset === userReserve.underlyingAsset);
+      if (!reserve) {
+        return null;
+      }
+      return {
+        ...userReserve,
+        ...reserve,
+      };
+    });
+}

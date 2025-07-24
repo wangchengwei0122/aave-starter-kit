@@ -19,7 +19,7 @@ import { AssetRow } from '@/lib/aggregators';
 
 interface UserSupplieProps {
   children?: ReactNode;
-  supplies?: readonly AssetRow[];
+  supplies?: any[];
 }
 
 export default function UserSupplies({ supplies }: UserSupplieProps) {

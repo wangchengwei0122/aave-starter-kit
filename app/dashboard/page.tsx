@@ -5,14 +5,20 @@ import AssetsToBorrow from './components/AssetsToBorrow';
 import AssetsToSupply from './components/AssetsToSupply';
 import Banner from './components/Banner';
 import UserBorrows from './components/UserBorrows';
-import UserSupplies from './components/UserSupplies';
+import UserSupplies from './components/userSupplies';
 
 export default function Dashboard() {
   // const { address } = useAccount();
 
-  const { rows: supplies, borrowRows, isLoading, error } = useAaveCtx();
-  console.log('rows', supplies);
-  console.log('borrowRows', borrowRows);
+  const {
+    rows: supplies,
+    borrowRows,
+    userSupplies: userSuppliesRows,
+    isLoading,
+    error,
+  } = useAaveCtx();
+  // console.log('rows', supplies);
+  // console.log('borrowRows', borrowRows);
 
   if (isLoading) {
     return <div>正在加载数据...</div>;
@@ -26,7 +32,7 @@ export default function Dashboard() {
       <Banner />
       <div className="flex -m-11 gap-4 w-[1400px] mx-auto">
         <div className="w-1/2 space-y-4">
-          <UserSupplies />
+          <UserSupplies supplies={userSuppliesRows} />
           <AssetsToSupply supplies={supplies} />
         </div>
         <div className="w-1/2 space-y-4">

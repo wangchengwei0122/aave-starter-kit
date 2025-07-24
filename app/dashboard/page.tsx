@@ -20,13 +20,14 @@ export default function Dashboard() {
   // console.log('rows', supplies);
   // console.log('borrowRows', borrowRows);
 
+  console.log('userSuppliAAAAAesRows', userSuppliesRows);
+
   if (isLoading) {
     return <div>正在加载数据...</div>;
   }
   if (error) {
     return <div>加载数据出错: {error.message}</div>;
   }
-
   return (
     <div>
       <Banner />

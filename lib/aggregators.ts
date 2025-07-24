@@ -138,16 +138,22 @@ export function aggregateUserSupplies(
   userReserves: UserReserveData[],
   reserves: AggregatedReserveData[],
 ) {
-  const userSupplies = userReserves
-    .filter((userReserve) => userReserve.scaledATokenBalance > 0)
-    .map((userReserve) => {
-      const reserve = reserves.find((r) => r.underlyingAsset === userReserve.underlyingAsset);
-      if (!reserve) {
-        return null;
-      }
-      return {
-        ...userReserve,
-        ...reserve,
-      };
-    });
+  console.log('--------------------------------');
+  console.log('userReserves', userReserves);
+  console.log('reserves', reserves);
+  // BigInt 类型不能直接用 > 0 判断，需要用 BigInt(0) 比较
+  const list = userReserves.filter((userReserve) => userReserve.scaledATokenBalance > BigInt(0));
+  // console.log('userReserves', userReserves);
+  // console.log('list', list);
+  const userSupplies = list.map((userReserve) => {
+    const reserve = reserves.find((r) => r.underlyingAsset === userReserve.underlyingAsset);
+    if (!reserve) {
+      return null;
+    }
+    return {
+      ...userReserve,
+      ...reserve,
+    };
+  });
+  return userSupplies;
 }

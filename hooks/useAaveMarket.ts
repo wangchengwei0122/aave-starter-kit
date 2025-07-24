@@ -54,17 +54,7 @@ export function useAaveMarket() {
       UserReserveData[],
       [UserWalletAddresses, UserWalletBalances],
     ];
-  // console.log('reserves', reserves);
-  // console.log('baseCurrency', baseCurrency);
-  console.log('aaaaaa', userReserves);
-  // console.log('walletAssets', walletAssets);
-  // console.log('walletBalances', walletBalances);
 
-  // const walletMap = new Map<string, bigint>(
-  //   walletAssets.map((a: string, i: number) => [a.toLowerCase(), walletBalances[i] as bigint]),
-  // );
-
-  // const reservesWithoutWeth = reserves.filter((r) => r.symbol !== 'WETH');
   const wethOrigin = reserves.find((r) => r.symbol === 'WETH');
   const finalReserves = wethOrigin
     ? [
@@ -76,7 +66,6 @@ export function useAaveMarket() {
   const walletMap = new Map<string, bigint>(
     walletAssets.map((a: string, i: number) => [a.toLowerCase(), walletBalances[i] as bigint]),
   );
-  console.log('AAAAAAA', userReserves);
 
   const rows = aggregateRows(finalReserves, userReserves, walletMap, baseCurrency);
   const borrowRows = aggregateBorrowRows(finalReserves, userReserves, walletMap, baseCurrency);

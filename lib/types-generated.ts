@@ -22,6 +22,7 @@ export type UserReservesData = ContractFunctionReturnType<
 >;
 
 export type UserReserveData = UserReservesData[0][number];
+export type UserReservesDataLength = UserReservesData[1]; // uint8 - 用户储备数据的长度
 
 export type UserWalletBalancesType = ContractFunctionReturnType<
   typeof WalletBalanceProvider_ABI,

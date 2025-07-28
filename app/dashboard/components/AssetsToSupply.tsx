@@ -43,7 +43,7 @@ export default function AssetsToSupply({ supplies }: AssetsSupplieProps) {
               </TableCell>
               <TableCell className="text-center">
                 <div className="flex items-center justify-center gap-1">
-                  <span>{supply.wallet.toFixed(7)}</span>
+                  <span>{supply.wallet}</span>
                   {supply.wallet < 0.01 && supply.wallet > 0 && (
                     <AlertTriangle className="text-red-500" size={12} />
                   )}

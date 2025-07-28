@@ -48,13 +48,19 @@ export function useAaveMarket() {
 
   if (!data) return { rows: [], borrowRows: [], userSupplies: [], ...rest };
 
-  const [[reserves, baseCurrency], userReserves, [walletAssets, walletBalances]] =
+  const [[reserves, baseCurrency], [userReserves], [walletAssets, walletBalances]] =
     data as unknown as [
       [AggregatedReserveData[], BaseCurrencyInfo],
-      UserReserveData[],
+      [UserReserveData[], number], // getUserReservesData 返回 (UserReserveData[], uint8)
       [UserWalletAddresses, UserWalletBalances],
     ];
+  console.log('--------------------');
+  console.log('userReserves:', userReserves);
 
+  if (Array.isArray(userReserves)) {
+    console.log('userReserves length:', userReserves.length);
+  }
+  console.log('----------------');
   const wethOrigin = reserves.find((r) => r.symbol === 'WETH');
   const finalReserves = wethOrigin
     ? [

@@ -41,9 +41,10 @@ export function aggregateRows(
     const walletBal = walletMap.get(r.underlyingAsset.toLowerCase()) ?? BigInt(0);
 
     const decimals = Number(r.decimals);
-    const priceUsd =
-      (Number(r.priceInMarketReferenceCurrency) * Number(base.marketReferenceCurrencyPriceInUsd)) /
-      1e8;
+    // 修复价格计算精度问题
+    const priceInMarketCurrency = Number(r.priceInMarketReferenceCurrency) / 1e8;
+    const marketCurrencyToUsd = Number(base.marketReferenceCurrencyPriceInUsd) / 1e8;
+    const priceUsd = priceInMarketCurrency * marketCurrencyToUsd;
 
     rows.push({
       address: r.underlyingAsset,
@@ -99,9 +100,10 @@ export function aggregateBorrowRows(
     const walletBal = walletMap.get(r.underlyingAsset.toLowerCase()) ?? BigInt(0);
 
     const decimals = Number(r.decimals);
-    const priceUsd =
-      (Number(r.priceInMarketReferenceCurrency) * Number(base.marketReferenceCurrencyPriceInUsd)) /
-      1e8;
+    // 修复价格计算精度问题
+    const priceInMarketCurrency = Number(r.priceInMarketReferenceCurrency) / 1e8;
+    const marketCurrencyToUsd = Number(base.marketReferenceCurrencyPriceInUsd) / 1e8;
+    const priceUsd = priceInMarketCurrency * marketCurrencyToUsd;
 
     // 计算可用流动性
     const availableLiquidity = balanceToNum(r.availableLiquidity, decimals);
@@ -187,11 +189,13 @@ export function aggregateUserBorrows(
       const variableDebt = (userReserve.scaledVariableDebt * reserve.variableBorrowIndex) / RAY;
       const debt = balanceToNum(variableDebt, decimals);
 
-      // 计算USD价值
-      const priceUsd =
-        (Number(reserve.priceInMarketReferenceCurrency) *
-          Number(base.marketReferenceCurrencyPriceInUsd)) /
-        1e8;
+      // 计算USD价值 (修复精度问题)
+      // priceInMarketReferenceCurrency 是 8 位精度 (1e8)
+      // marketReferenceCurrencyPriceInUsd 也是 8 位精度 (1e8)
+      // 所以需要除以 1e16，但为了避免精度损失，我们分别处理
+      const priceInMarketCurrency = Number(reserve.priceInMarketReferenceCurrency) / 1e8;
+      const marketCurrencyToUsd = Number(base.marketReferenceCurrencyPriceInUsd) / 1e8;
+      const priceUsd = priceInMarketCurrency * marketCurrencyToUsd;
       const usdValue = debt * priceUsd;
 
       // 使用可变利率 (Aave V3中stable已弃用)

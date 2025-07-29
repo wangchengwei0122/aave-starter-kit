@@ -2,7 +2,12 @@ import { IUiPoolDataProvider_ABI } from '@bgd-labs/aave-address-book/abis';
 import { useAccount, useReadContracts } from 'wagmi';
 
 import { WalletBalanceProvider_ABI } from '@/abis/WalletBalanceProvider_ABI';
-import { aggregateBorrowRows, aggregateRows, aggregateUserSupplies } from '@/lib/aggregators';
+import {
+  aggregateBorrowRows,
+  aggregateRows,
+  aggregateUserBorrows,
+  aggregateUserSupplies,
+} from '@/lib/aggregators';
 import {
   POOL_ADDRESSES_PROVIDER,
   UI_POOL_DATA_PROVIDER,
@@ -46,7 +51,7 @@ export function useAaveMarket() {
     ],
   });
 
-  if (!data) return { rows: [], borrowRows: [], userSupplies: [], ...rest };
+  if (!data) return { rows: [], borrowRows: [], userSupplies: [], userBorrows: [], ...rest };
 
   const [[reserves, baseCurrency], [userReserves], [walletAssets, walletBalances]] =
     data as unknown as [
@@ -76,6 +81,7 @@ export function useAaveMarket() {
   const rows = aggregateRows(finalReserves, userReserves, walletMap, baseCurrency);
   const borrowRows = aggregateBorrowRows(finalReserves, userReserves, walletMap, baseCurrency);
   const userSupplies = aggregateUserSupplies(userReserves, finalReserves);
+  const userBorrows = aggregateUserBorrows(userReserves, finalReserves, baseCurrency);
 
-  return { rows, borrowRows, userSupplies, ...rest };
+  return { rows, borrowRows, userSupplies, userBorrows, ...rest };
 }

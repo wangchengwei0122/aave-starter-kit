@@ -29,9 +29,9 @@ export default function UserSupplies({ supplies }: UserSupplieProps) {
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Assets</TableHead>
-            <TableHead>Wallet balance</TableHead>
+            <TableHead>Balance</TableHead>
             <TableHead>APY</TableHead>
-            <TableHead>Can be collateral</TableHead>
+            <TableHead>Collateral</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
@@ -58,21 +58,10 @@ export default function UserSupplies({ supplies }: UserSupplieProps) {
                 )}
               </TableCell>
               <TableCell>
-                <Button className="mr-2" disabled={!supply.canCollateral}>
-                  Supply
+                <Button className="mr-2">Supply</Button>
+                <Button variant="outline" disabled={!supply.canCollateral}>
+                  Withdraw
                 </Button>
-                {/* <Button variant="outline" disabled={!supply.canCollateral}>
-                  ...
-                </Button> */}
-
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" disabled={!supply.canCollateral}>
-                      ...
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-80"></PopoverContent>
-                </Popover>
               </TableCell>
             </TableRow>
           ))}

@@ -157,3 +157,58 @@ export function aggregateUserSupplies(
   });
   return userSupplies;
 }
+
+export function aggregateUserBorrows(
+  userReserves: UserReserveData[],
+  reserves: AggregatedReserveData[],
+  base: BaseCurrencyInfo,
+) {
+  console.log('--------------------------------');
+  console.log('aggregateUserBorrows - userReserves', userReserves);
+  console.log('aggregateUserBorrows - reserves', reserves);
+
+  // 过滤有借款的资产 (只检查 scaledVariableDebt > 0，因为Aave V3中stable已弃用)
+  const borrowedAssets = userReserves.filter(
+    (userReserve) => userReserve.scaledVariableDebt > BigInt(0),
+  );
+
+  console.log('borrowedAssets', borrowedAssets);
+
+  const userBorrows = borrowedAssets
+    .map((userReserve) => {
+      const reserve = reserves.find((r) => r.underlyingAsset === userReserve.underlyingAsset);
+      if (!reserve) {
+        return null;
+      }
+
+      const decimals = Number(reserve.decimals);
+
+      // 计算可变利率债务 (Aave V3中stable已弃用，只计算variable debt)
+      const variableDebt = (userReserve.scaledVariableDebt * reserve.variableBorrowIndex) / RAY;
+      const debt = balanceToNum(variableDebt, decimals);
+
+      // 计算USD价值
+      const priceUsd =
+        (Number(reserve.priceInMarketReferenceCurrency) *
+          Number(base.marketReferenceCurrencyPriceInUsd)) /
+        1e8;
+      const usdValue = debt * priceUsd;
+
+      // 使用可变利率 (Aave V3中stable已弃用)
+      const apy = formatPercent(rayToApy(reserve.variableBorrowRate));
+
+      return {
+        debt,
+        usdValue,
+        apy,
+        variableDebt: debt, // 简化：debt 就是 variableDebt
+        canRepay: debt > 0,
+        ...userReserve,
+        ...reserve,
+      };
+    })
+    .filter(Boolean); // 过滤掉null值
+
+  console.log('final userBorrows', userBorrows);
+  return userBorrows;
+}

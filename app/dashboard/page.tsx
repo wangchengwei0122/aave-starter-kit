@@ -15,6 +15,7 @@ export default function Dashboard() {
     borrowRows,
     userSupplies: userSuppliesRows,
     userBorrows: userBorrowsRows,
+    userPosition,
     isLoading,
     error,
   } = useAaveCtx();
@@ -38,7 +39,7 @@ export default function Dashboard() {
           <AssetsToSupply supplies={supplies} />
         </div>
         <div className="w-1/2 space-y-4">
-          <UserBorrows borrows={userBorrowsRows} />
+          <UserBorrows borrows={userBorrowsRows?.filter(Boolean) || []} />
           <AssetsToBorrow borrows={borrowRows} />
         </div>
       </div>

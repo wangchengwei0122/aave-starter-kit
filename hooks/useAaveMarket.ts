@@ -7,6 +7,7 @@ import {
   aggregateRows,
   aggregateUserBorrows,
   aggregateUserSupplies,
+  calculateUserPosition,
 } from '@/lib/aggregators';
 import {
   POOL_ADDRESSES_PROVIDER,
@@ -51,7 +52,15 @@ export function useAaveMarket() {
     ],
   });
 
-  if (!data) return { rows: [], borrowRows: [], userSupplies: [], userBorrows: [], ...rest };
+  if (!data)
+    return {
+      rows: [],
+      borrowRows: [],
+      userSupplies: [],
+      userBorrows: [],
+      userPosition: null,
+      ...rest,
+    };
 
   const [[reserves, baseCurrency], [userReserves], [walletAssets, walletBalances]] =
     data as unknown as [
@@ -82,6 +91,7 @@ export function useAaveMarket() {
   const borrowRows = aggregateBorrowRows(finalReserves, userReserves, walletMap, baseCurrency);
   const userSupplies = aggregateUserSupplies(userReserves, finalReserves);
   const userBorrows = aggregateUserBorrows(userReserves, finalReserves, baseCurrency);
+  const userPosition = calculateUserPosition(userSupplies, userBorrows, baseCurrency);
 
-  return { rows, borrowRows, userSupplies, userBorrows, ...rest };
+  return { rows, borrowRows, userSupplies, userBorrows, userPosition, ...rest };
 }

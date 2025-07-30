@@ -26,7 +26,7 @@ interface UserBorrowItem {
 
 interface UserBorrowsProps {
   children?: ReactNode;
-  borrows?: UserBorrowItem[];
+  borrows?: (UserBorrowItem | null)[];
 }
 
 export default function UserBorrows({ borrows }: UserBorrowsProps) {
@@ -42,31 +42,36 @@ export default function UserBorrows({ borrows }: UserBorrowsProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {borrows && borrows.length > 0 ? (
-            borrows.map((borrow, index) => (
-              <TableRow key={`${borrow.underlyingAsset}-${index}`}>
-                <TableCell className="font-medium">
-                  <AssetsItem symbol={borrow.symbol} />
-                </TableCell>
-                <TableCell className="text-center">
-                  <div className="flex flex-col">
-                    <span>{borrow.debt.toFixed(2)}</span>
-                    <span className="text-sm text-gray-500">${borrow.usdValue.toFixed(2)}</span>
-                  </div>
-                </TableCell>
-                <TableCell className="text-center">{borrow.apy}</TableCell>
-                <TableCell>
-                  <div className="flex gap-2">
-                    <Button size="sm" className="mr-2">
-                      Borrow
-                    </Button>
-                    <Button size="sm" variant="outline" disabled={!borrow.canRepay}>
-                      Repay
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))
+          {borrows && borrows.filter(Boolean).length > 0 ? (
+            borrows.filter(Boolean).map((borrow, index) => {
+              const borrowItem = borrow as UserBorrowItem;
+              return (
+                <TableRow key={`${borrowItem.underlyingAsset}-${index}`}>
+                  <TableCell className="font-medium">
+                    <AssetsItem symbol={borrowItem.symbol} />
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <div className="flex flex-col">
+                      <span>{borrowItem.debt.toFixed(2)}</span>
+                      <span className="text-sm text-gray-500">
+                        ${borrowItem.usdValue.toFixed(2)}
+                      </span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-center">{borrowItem.apy}</TableCell>
+                  <TableCell>
+                    <div className="flex gap-2">
+                      <Button size="sm" className="mr-2">
+                        Borrow
+                      </Button>
+                      <Button size="sm" variant="outline" disabled={!borrowItem.canRepay}>
+                        Repay
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              );
+            })
           ) : (
             <TableRow>
               <TableCell colSpan={4} className="text-center text-gray-500 py-8">

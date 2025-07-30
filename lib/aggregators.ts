@@ -216,3 +216,80 @@ export function aggregateUserBorrows(
   console.log('final userBorrows', userBorrows);
   return userBorrows;
 }
+
+export function calculateUserPosition(
+  userSupplies: any[],
+  userBorrows: any[],
+  base: BaseCurrencyInfo,
+) {
+  // 计算总供应价值
+  const totalSupplyValue = userSupplies.reduce((sum, supply) => {
+    const priceInMarketCurrency = Number(supply.priceInMarketReferenceCurrency) / 1e8;
+    const marketCurrencyToUsd = Number(base.marketReferenceCurrencyPriceInUsd) / 1e8;
+    const priceUsd = priceInMarketCurrency * marketCurrencyToUsd;
+    return sum + supply.wallet * priceUsd;
+  }, 0);
+
+  // 计算总借款价值
+  const totalBorrowValue = userBorrows.reduce((sum, borrow) => {
+    return sum + borrow.usdValue;
+  }, 0);
+
+  // 计算净价值
+  const netWorth = totalSupplyValue - totalBorrowValue;
+
+  // 计算加权APY
+  let totalSupplyAPY = 0;
+  let totalBorrowAPY = 0;
+  let totalSupplyWeight = 0;
+  let totalBorrowWeight = 0;
+
+  // 供应APY计算
+  userSupplies.forEach((supply) => {
+    const priceInMarketCurrency = Number(supply.priceInMarketReferenceCurrency) / 1e8;
+    const marketCurrencyToUsd = Number(base.marketReferenceCurrencyPriceInUsd) / 1e8;
+    const priceUsd = priceInMarketCurrency * marketCurrencyToUsd;
+    const supplyValue = supply.wallet * priceUsd;
+
+    if (supplyValue > 0) {
+      const apy =
+        typeof supply.supplyAPY === 'string'
+          ? parseFloat(supply.supplyAPY.replace('%', '').replace(',', ''))
+          : supply.supplyAPY;
+
+      totalSupplyAPY += apy * supplyValue;
+      totalSupplyWeight += supplyValue;
+    }
+  });
+
+  // 借款APY计算
+  userBorrows.forEach((borrow) => {
+    if (borrow.usdValue > 0) {
+      const apy =
+        typeof borrow.apy === 'string'
+          ? parseFloat(borrow.apy.replace('%', '').replace(',', ''))
+          : borrow.apy;
+
+      totalBorrowAPY += apy * borrow.usdValue;
+      totalBorrowWeight += borrow.usdValue;
+    }
+  });
+
+  // 计算加权平均APY
+  const avgSupplyAPY = totalSupplyWeight > 0 ? totalSupplyAPY / totalSupplyWeight : 0;
+  const avgBorrowAPY = totalBorrowWeight > 0 ? totalBorrowAPY / totalBorrowWeight : 0;
+
+  // 净APY = 供应APY - 借款APY
+  const netAPY = avgSupplyAPY - avgBorrowAPY;
+
+  // 计算健康因子 (简化版本)
+  const healthFactor = totalSupplyValue > 0 ? totalSupplyValue / (totalBorrowValue + 0.01) : 0;
+
+  return {
+    netWorth,
+    netAPY,
+    healthFactor,
+    totalSupplyValue,
+    totalBorrowValue,
+  };
+}

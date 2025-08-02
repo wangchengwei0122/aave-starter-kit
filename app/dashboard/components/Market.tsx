@@ -205,7 +205,6 @@ export default function Market() {
             </div>
           </div>
 
-          {/* 健康因子 */}
           <div className="text-center">
             <div className="text-sm text-gray-600 mb-2">Health factor</div>
             <div

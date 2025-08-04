@@ -25,7 +25,6 @@ export default function App() {
             <p className="text-gray-300 text-lg">Open Source Liquidity Protocol</p>
           </div>
 
-          {/* 描述 */}
           <div className="mb-8">
             <p className="text-gray-300 text-sm leading-relaxed">
               Connect your wallet to access the Aave protocol and start earning interest on your
@@ -45,8 +44,6 @@ export default function App() {
                 authenticationStatus,
                 mounted,
               }) => {
-                // Note: If your app doesn't use authentication, you
-                // can remove all 'authenticationStatus' checks
                 const ready = mounted && authenticationStatus !== 'loading';
                 const connected =
                   ready &&

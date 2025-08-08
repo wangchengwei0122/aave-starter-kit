@@ -19,7 +19,7 @@ export default function Dashboard() {
     isLoading,
     error,
   } = useAaveCtx();
-  // console.log('rows', supplies);
+  console.log('rows', supplies);
   // console.log('borrowRows', borrowRows);
 
   // console.log('userSuppliAAAAAesRows', userSuppliesRows);

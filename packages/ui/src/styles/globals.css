@@ -2,9 +2,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
+
 @theme {
   /* Colors - Semantic Mapping */
+
   --color-background: var(--bg-app);
+  
   --color-foreground: var(--text-primary);
   
   --color-card: var(--bg-surface);

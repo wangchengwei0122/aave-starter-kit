@@ -1,5 +1,7 @@
 export { AppButton } from "./app-button"
 export { AppBadge } from "./app-badge"
+export { AppAlert, type AppAlertProps } from "./app-alert"
+
 export {
   AppCard,
   AppCardHeader,
@@ -26,3 +28,4 @@ export {
   AppPopoverContent,
 } from "./app-popover"
 export { AppSelect, AppSelectItem } from "./app-select"
+export { AppCheckbox } from "./app-checkbox"

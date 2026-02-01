@@ -1,0 +1,11 @@
+import { Button } from "@workspace/ui/components/button";
+export default function Home() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <Button variant="outline">Button</Button>
+      <Button variant="outline" size="icon" aria-label="Submit">
+       1112
+      </Button>
+    </div>
+  );
+}

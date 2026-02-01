@@ -59,6 +59,10 @@ export const Sizes: Story = {
 }
 
 export const States: Story = {
+  args: {
+    size: "lg"
+  },
+
   render: () => (
     <div className="flex items-center gap-4">
       <AppButton loading>Loading</AppButton>
@@ -66,5 +70,5 @@ export const States: Story = {
       <AppButton variant="secondary" loading>Loading Secondary</AppButton>
       <AppButton variant="destructive" disabled>Disabled Destructive</AppButton>
     </div>
-  ),
+  )
 }

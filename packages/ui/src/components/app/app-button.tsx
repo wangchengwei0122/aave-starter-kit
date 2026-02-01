@@ -5,7 +5,7 @@ import { cn } from "../../lib/utils"
 
 type ShadcnButtonProps = React.ComponentProps<typeof Button>
 
-export interface AppButtonProps extends Omit<ShadcnButtonProps, "variant" | "size"> {
+export interface AppButtonProps extends Omit<ShadcnButtonProps, "variant" | "size" | "asChild"> {
   variant?: "primary" | "secondary" | "ghost" | "destructive"
   size?: "sm" | "md" | "lg"
   loading?: boolean
@@ -32,9 +32,10 @@ const AppButton = React.forwardRef<HTMLButtonElement, AppButtonProps>(
     return (
       <Button
         ref={ref}
-        variant={variantMap[variant as keyof typeof variantMap]}
-        size={sizeMap[size as keyof typeof sizeMap]}
+        variant={variantMap[variant]}
+        size={sizeMap[size]}
         disabled={loading || disabled}
+        aria-disabled={loading || disabled}
         className={cn(className)}
         {...props}
       >

@@ -3,78 +3,171 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --radius-radius: var(--radius);
+  /* Colors - Semantic Mapping */
+  --color-background: var(--bg-app);
+  --color-foreground: var(--text-primary);
+  
+  --color-card: var(--bg-surface);
+  --color-card-foreground: var(--text-primary);
+  
+  --color-popover: var(--bg-elevated);
+  --color-popover-foreground: var(--text-primary);
+  
+  --color-primary: var(--bg-primary);
+  --color-primary-foreground: var(--text-inverted);
+  
+  --color-secondary: var(--bg-secondary);
+  --color-secondary-foreground: var(--text-primary);
+  
+  --color-muted: var(--bg-muted);
+  --color-muted-foreground: var(--text-muted);
+  
+  --color-accent: var(--bg-accent);
+  --color-accent-foreground: var(--text-primary);
+  
+  --color-destructive: var(--state-danger);
+  --color-destructive-foreground: var(--text-inverted);
+  
+  --color-border: var(--border-default);
+  --color-input: var(--border-subtle);
+  --color-ring: var(--border-strong);
+  
+  /* Semantic Colors Extension */
+  --color-bg-app: var(--bg-app);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-panel: var(--bg-panel);
+  --color-bg-elevated: var(--bg-elevated);
+  
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverted: var(--text-inverted);
+  
+  --color-border-default: var(--border-default);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  
+  /* DeFi Specific */
+  --color-defi-apy-pos: var(--defi-apy-pos);
+  --color-defi-apy-neg: var(--defi-apy-neg);
+  
+  --color-defi-risk-low: var(--defi-risk-low);
+  --color-defi-risk-mid: var(--defi-risk-mid);
+  --color-defi-risk-high: var(--defi-risk-high);
+  
+  --color-defi-health-safe: var(--defi-health-safe);
+  --color-defi-health-warn: var(--defi-health-warn);
+  --color-defi-health-liq: var(--defi-health-liq);
+
+  /* Radius */
+  --radius-radius: var(--radius-card);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
 }
 
 :root {
-  --background: hsl(0 0% 100%);
-  --foreground: hsl(240 10% 3.9%);
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(240 10% 3.9%);
-  --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(240 10% 3.9%);
-  --primary: hsl(240 5.9% 10%);
-  --primary-foreground: hsl(0 0% 98%);
-  --secondary: hsl(240 4.8% 95.9%);
-  --secondary-foreground: hsl(240 5.9% 10%);
-  --muted: hsl(240 4.8% 95.9%);
-  --muted-foreground: hsl(240 3.8% 46.1%);
-  --accent: hsl(240 4.8% 95.9%);
-  --accent-foreground: hsl(240 5.9% 10%);
-  --destructive: hsl(0 84.2% 60.2%);
-  --destructive-foreground: hsl(0 0% 98%);
-  --border: hsl(240 5.9% 90%);
-  --input: hsl(240 5.9% 90%);
-  --ring: hsl(240 5.9% 10%);
-  --radius: 0.5rem;
+  /* 
+   * Color System - Light Mode
+   * Neutral, Clean, Trust-oriented (Aave/DeFi style)
+   */
+  
+  /* Backgrounds */
+  --bg-app: hsl(220 14% 96%);        /* Light grey foundation */
+  --bg-surface: hsl(0 0% 100%);      /* Pure white cards */
+  --bg-panel: hsl(220 14% 98%);      /* Slightly offset panels */
+  --bg-elevated: hsl(0 0% 100%);     /* Dropdowns/Popovers */
+  
+  --bg-primary: hsl(222 47% 11%);    /* Deep Navy */
+  --bg-secondary: hsl(220 14% 96%);  /* Light Gray */
+  --bg-muted: hsl(220 14% 96%);      /* Muted backgrounds */
+  --bg-accent: hsl(220 14% 93%);     /* Hover states */
+
+  /* Typography */
+  --text-primary: hsl(222 47% 11%);  /* Deep Navy (Almost Black) */
+  --text-secondary: hsl(215 19% 35%); /* Blue-ish Gray */
+  --text-muted: hsl(215 16% 47%);    /* Muted Gray */
+  --text-inverted: hsl(0 0% 100%);   /* White */
+
+  /* Borders */
+  --border-default: hsl(220 13% 91%); /* Standard border */
+  --border-subtle: hsl(220 13% 95%);  /* Subtle dividers */
+  --border-strong: hsl(215 19% 35%);  /* Focus rings / Active */
+
+  /* State Colors */
+  --state-success: hsl(142 76% 36%);
+  --state-warning: hsl(48 96% 53%);
+  --state-danger: hsl(0 84% 60%);
+  --state-info: hsl(221 83% 53%);
+
+  /* DeFi Specifics (Financial Data) */
+  --defi-apy-pos: hsl(142 76% 36%);        /* Green */
+  --defi-apy-neg: hsl(0 84% 60%);          /* Red */
+  
+  --defi-risk-low: hsl(142 76% 36%);       /* Green: <35% LTV */
+  --defi-risk-mid: hsl(32 95% 44%);        /* Orange: <65% LTV */
+  --defi-risk-high: hsl(0 84% 60%);        /* Red: >80% LTV */
+  
+  --defi-health-safe: hsl(142 76% 36%);    /* > 1.5 */
+  --defi-health-warn: hsl(32 95% 44%);     /* 1.0 - 1.5 */
+  --defi-health-liq: hsl(0 84% 60%);       /* < 1.0 */
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-card: 0.75rem;
 }
 
 .dark {
-  --background: hsl(240 10% 3.9%);
-  --foreground: hsl(0 0% 98%);
-  --card: hsl(240 10% 3.9%);
-  --card-foreground: hsl(0 0% 98%);
-  --popover: hsl(240 10% 3.9%);
-  --popover-foreground: hsl(0 0% 98%);
-  --primary: hsl(0 0% 98%);
-  --primary-foreground: hsl(240 5.9% 10%);
-  --secondary: hsl(240 3.7% 15.6%);
-  --secondary-foreground: hsl(0 0% 98%);
-  --muted: hsl(240 3.7% 15.6%);
-  --muted-foreground: hsl(240 5% 64.9%);
-  --accent: hsl(240 3.7% 15.6%);
-  --accent-foreground: hsl(0 0% 98%);
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: hsl(0 0% 98%);
-  --border: hsl(240 3.7% 15.6%);
-  --input: hsl(240 3.7% 15.6%);
-  --ring: hsl(240 4.9% 83.9%);
+  /* 
+   * Color System - Dark Mode
+   * Deep, Data-Dense, Easy on eyes
+   */
+
+  /* Backgrounds */
+  --bg-app: hsl(224 71% 4%);         /* Deepest Navy */
+  --bg-surface: hsl(222 47% 11%);    /* Component Background */
+  --bg-panel: hsl(217 33% 17%);      /* Secondary Background */
+  --bg-elevated: hsl(222 47% 11%);   /* Popover */
+
+  --bg-primary: hsl(210 40% 98%);    /* White/Off-white */
+  --bg-secondary: hsl(217 33% 17%);  /* Dark Blue-Grey */
+  --bg-muted: hsl(217 33% 17%);      /* Muted */
+  --bg-accent: hsl(217 33% 22%);     /* Lighter interaction */
+
+  /* Typography */
+  --text-primary: hsl(210 40% 98%);  /* Off-white */
+  --text-secondary: hsl(215 20% 65%); /* Cool Gray */
+  --text-muted: hsl(215 16% 47%);    /* Darker Gray */
+  --text-inverted: hsl(222 47% 11%); /* Dark Navy */
+
+  /* Borders */
+  --border-default: hsl(217 33% 20%);
+  --border-subtle: hsl(217 33% 15%);
+  --border-strong: hsl(215 20% 65%);
+
+  /* DeFi Specifics - Dark Mode Adjustments */
+  --defi-apy-pos: hsl(142 70% 50%);
+  --defi-apy-neg: hsl(0 84% 60%);
+
+  --defi-risk-low: hsl(142 70% 50%);
+  --defi-risk-mid: hsl(32 95% 55%);
+  --defi-risk-high: hsl(0 84% 60%);
+  
+  --defi-health-safe: hsl(142 70% 50%);
+  --defi-health-warn: hsl(32 95% 55%);
+  --defi-health-liq: hsl(0 84% 60%);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border-default outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-bg-app text-text-primary antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

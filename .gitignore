@@ -62,3 +62,8 @@ next-env.d.ts
 # Misc
 ####################################
 *.pem
+
+.agent
+
+# Storybook
+storybook-static/

@@ -14,6 +14,11 @@
   
   --color-card: var(--bg-surface);
   --color-card-foreground: var(--text-primary);
+
+  --color-state-success: var(--state-success);
+  --color-state-warning: var(--state-warning);
+  --color-state-danger: var(--state-danger);
+  --color-state-info: var(--state-info);
   
   --color-popover: var(--bg-elevated);
   --color-popover-foreground: var(--text-primary);

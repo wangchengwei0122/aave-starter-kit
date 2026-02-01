@@ -37,7 +37,13 @@ const AppButton = React.forwardRef<HTMLButtonElement, AppButtonProps>(
         disabled={loading || disabled}
         aria-disabled={loading || disabled}
         className={cn(
-          variant === "ghost" && "text-text-secondary hover:text-text-primary",
+          // Variant overrides
+          variant === "secondary" && "border border-border-subtle shadow-xs hover:bg-secondary/90 active:scale-[0.98]",
+          variant === "ghost" && "text-text-secondary hover:text-text-primary active:bg-accent/70 active:scale-[0.98]",
+          
+          // State overrides
+          loading && "disabled:opacity-90 disabled:cursor-wait",
+          
           className
         )}
         {...props}

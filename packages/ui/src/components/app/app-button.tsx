@@ -36,7 +36,10 @@ const AppButton = React.forwardRef<HTMLButtonElement, AppButtonProps>(
         size={sizeMap[size]}
         disabled={loading || disabled}
         aria-disabled={loading || disabled}
-        className={cn(className)}
+        className={cn(
+          variant === "ghost" && "text-text-secondary hover:text-text-primary",
+          className
+        )}
         {...props}
       >
         {loading && <Spinner className="mr-2 h-4 w-4" />}

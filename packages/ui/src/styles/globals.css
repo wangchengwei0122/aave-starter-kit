@@ -75,50 +75,53 @@
 :root {
   /* 
    * Color System - Light Mode
-   * Neutral, Clean, Trust-oriented (Aave/DeFi style)
+   * Calm, Institutional, Precise
+   * Neutrals: Hue 220, Saturation <= 6% (Perceptually Neutral)
    */
   
-  /* Backgrounds */
-  --bg-app: hsl(220 14% 96%);        /* Light grey foundation */
-  --bg-surface: hsl(0 0% 100%);      /* Pure white cards */
-  --bg-panel: hsl(220 14% 98%);      /* Slightly offset panels */
-  --bg-elevated: hsl(0 0% 100%);     /* Dropdowns/Popovers */
+  /* Backgrounds - Elevation Ladder */
+  --bg-app: hsl(220 6% 94%);         /* Foundation (Darker than surface) */
+  --bg-surface: hsl(0 0% 100%);      /* Card Base (Pure White) */
+  --bg-panel: hsl(220 6% 97%);       /* Secondary containers/Sidebars */
+  --bg-elevated: hsl(0 0% 100%);     /* Popovers (Relies on Shadow) */
   
-  --bg-primary: hsl(222 47% 11%);    /* Deep Navy */
-  --bg-secondary: hsl(220 14% 96%);  /* Light Gray */
-  --bg-muted: hsl(220 14% 96%);      /* Muted backgrounds */
-  --bg-accent: hsl(220 14% 93%);     /* Hover states */
+  --bg-primary: hsl(220 20% 12%);    /* Deep Navy Soft Ink */
+  --bg-secondary: hsl(220 6% 86%);   /* Button secondary */
+  --bg-muted: hsl(220 6% 92%);       /* Muted areas */
+  --bg-accent: hsl(220 6% 90%);      /* Interaction hover */
 
-  /* Typography */
-  --text-primary: hsl(222 47% 11%);  /* Deep Navy (Almost Black) */
-  --text-secondary: hsl(215 19% 35%); /* Blue-ish Gray */
-  --text-muted: hsl(215 16% 47%);    /* Muted Gray */
+  /* Typography - Soft Ink (No pure black) */
+  --text-primary: hsl(220 20% 12%);  /* Dark Navy Grey */
+  --text-secondary: hsl(220 10% 40%); /* Neutral Grey */
+  --text-muted: hsl(220 8% 55%);     /* Muted metadata */
   --text-inverted: hsl(0 0% 100%);   /* White */
 
   /* Borders */
-  --border-default: hsl(220 13% 91%); /* Standard border */
-  --border-subtle: hsl(220 13% 95%);  /* Subtle dividers */
-  --border-strong: hsl(215 19% 35%);  /* Focus rings / Active */
+  --border-default: hsl(220 8% 90%); /* Structural */
+  --border-subtle: hsl(220 8% 94%);  /* Dividers */
+  --border-strong: hsl(220 10% 40%); /* Active focus */
 
-  /* State Colors */
-  --state-success: hsl(142 76% 36%);
-  --state-warning: hsl(48 96% 53%);
-  --state-danger: hsl(0 84% 60%);
-  --state-info: hsl(221 83% 53%);
+  /* State Colors - Tier A (Action/Emphasis) */
+  /* Moderate saturation, clear intent */
+  --state-success: hsl(150 40% 40%);
+  --state-warning: hsl(35 70% 50%);  /* Darker Gold */
+  --state-danger: hsl(0 60% 55%);
+  --state-info: hsl(210 60% 50%);
 
-  /* DeFi Specifics (Financial Data) */
-  --defi-apy-pos: hsl(142 76% 36%);        /* Green */
-  --defi-apy-neg: hsl(0 84% 60%);          /* Red */
+  /* DeFi Colors - Tier B (Data/Muted) */
+  /* Lower saturation for information density */
+  --defi-apy-pos: hsl(150 30% 45%);
+  --defi-apy-neg: hsl(0 40% 60%);
   
-  --defi-risk-low: hsl(142 76% 36%);       /* Green: <35% LTV */
-  --defi-risk-mid: hsl(32 95% 44%);        /* Orange: <65% LTV */
-  --defi-risk-high: hsl(0 84% 60%);        /* Red: >80% LTV */
+  --defi-risk-low: hsl(150 30% 45%);       /* Safe */
+  --defi-risk-mid: hsl(35 60% 50%);        /* Warning */
+  --defi-risk-high: hsl(0 40% 60%);        /* Danger */
   
-  --defi-health-safe: hsl(142 76% 36%);    /* > 1.5 */
-  --defi-health-warn: hsl(32 95% 44%);     /* 1.0 - 1.5 */
-  --defi-health-liq: hsl(0 84% 60%);       /* < 1.0 */
+  --defi-health-safe: hsl(150 30% 45%);
+  --defi-health-warn: hsl(35 60% 50%);
+  --defi-health-liq: hsl(0 40% 60%);
 
-  /* Radius */
+  /* Radius (Preserved) */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
@@ -129,42 +132,50 @@
 .dark {
   /* 
    * Color System - Dark Mode
-   * Deep, Data-Dense, Easy on eyes
+   * Obsidian, Depth, Soft-White
+   * Neutrals: Hue 220, Saturation <= 10%
    */
 
-  /* Backgrounds */
-  --bg-app: hsl(224 71% 4%);         /* Deepest Navy */
-  --bg-surface: hsl(222 47% 11%);    /* Component Background */
-  --bg-panel: hsl(217 33% 17%);      /* Secondary Background */
-  --bg-elevated: hsl(222 47% 11%);   /* Popover */
+  /* Backgrounds - Elevation Ladder */
+  --bg-app: hsl(220 10% 6%);         /* Deep Obsidian */
+  --bg-surface: hsl(220 8% 10%);     /* Card Base (+4L) */
+  --bg-panel: hsl(220 8% 14%);       /* Sidebars (+4L) */
+  --bg-elevated: hsl(220 8% 18%);    /* Popovers (+4L) */
 
-  --bg-primary: hsl(210 40% 98%);    /* White/Off-white */
-  --bg-secondary: hsl(217 33% 17%);  /* Dark Blue-Grey */
-  --bg-muted: hsl(217 33% 17%);      /* Muted */
-  --bg-accent: hsl(217 33% 22%);     /* Lighter interaction */
+  --bg-primary: hsl(220 10% 94%);    /* Soft White */
+  --bg-secondary: hsl(220 8% 16%);   /* Button secondary */
+  --bg-muted: hsl(220 8% 16%);       /* Muted foundations */
+  --bg-accent: hsl(220 8% 22%);      /* Interaction hover */
 
-  /* Typography */
-  --text-primary: hsl(210 40% 98%);  /* Off-white */
-  --text-secondary: hsl(215 20% 65%); /* Cool Gray */
-  --text-muted: hsl(215 16% 47%);    /* Darker Gray */
-  --text-inverted: hsl(222 47% 11%); /* Dark Navy */
+  /* Typography - Soft White (No pure white text) */
+  --text-primary: hsl(220 10% 94%);  /* Soft White */
+  --text-secondary: hsl(220 8% 65%); /* Cool Grey */
+  --text-muted: hsl(220 6% 45%);     /* Darker Grey */
+  --text-inverted: hsl(220 10% 6%);  /* Deep Obsidian */
 
   /* Borders */
-  --border-default: hsl(217 33% 20%);
-  --border-subtle: hsl(217 33% 15%);
-  --border-strong: hsl(215 20% 65%);
+  --border-default: hsl(220 8% 20%);
+  --border-subtle: hsl(220 8% 14%);
+  --border-strong: hsl(220 8% 65%);
 
-  /* DeFi Specifics - Dark Mode Adjustments */
-  --defi-apy-pos: hsl(142 70% 50%);
-  --defi-apy-neg: hsl(0 84% 60%);
+  /* State Colors - Tier A (Action) */
+  --state-success: hsl(150 40% 50%); /* Slightly brighter for dark mode */
+  --state-warning: hsl(35 70% 50%);
+  --state-danger: hsl(0 60% 65%);
+  --state-info: hsl(210 60% 60%);
 
-  --defi-risk-low: hsl(142 70% 50%);
-  --defi-risk-mid: hsl(32 95% 55%);
-  --defi-risk-high: hsl(0 84% 60%);
+  /* DeFi Colors - Tier B (Data) */
+  /* Muted, readable against dark bg */
+  --defi-apy-pos: hsl(150 25% 50%);
+  --defi-apy-neg: hsl(0 35% 65%);
+
+  --defi-risk-low: hsl(150 25% 50%);
+  --defi-risk-mid: hsl(35 60% 55%);
+  --defi-risk-high: hsl(0 35% 65%);
   
-  --defi-health-safe: hsl(142 70% 50%);
-  --defi-health-warn: hsl(32 95% 55%);
-  --defi-health-liq: hsl(0 84% 60%);
+  --defi-health-safe: hsl(150 25% 50%);
+  --defi-health-warn: hsl(35 60% 55%);
+  --defi-health-liq: hsl(0 35% 65%);
 }
 
 @layer base {

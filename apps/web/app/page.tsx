@@ -1,8 +1,14 @@
+"use client";
+
 import { AppButton } from "@workspace/ui/components/app";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-zinc-50 font-sans dark:bg-black">
+      <div className="mb-8">
+        <ConnectButton />
+      </div>
       <AppButton>Default Button</AppButton>
       <AppButton variant="secondary">Secondary</AppButton>
       <AppButton variant="ghost">Ghost</AppButton>

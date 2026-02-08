@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { AppNavigationMenu, AppButton } from "@workspace/ui/components";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +27,44 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background text-foreground font-sans`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="min-h-screen flex flex-col">
+            <header className="sticky top-0 z-50 w-full border-b bg-card h-12 flex items-center px-4 justify-between transition-colors">
+              {/* Left: Logo Placeholder */}
+              <div className="flex items-center gap-2 w-1/4">
+                <div className="h-6 w-6 bg-primary/20 rounded-full" />
+                <span className="font-semibold text-sm">Aave V3</span>
+              </div>
+
+              {/* Center: Navigation */}
+              <div className="flex justify-center flex-1">
+                <AppNavigationMenu
+                  items={[
+                    { label: "Dashboard", href: "/" },
+                    { label: "Markets", href: "/markets" },
+                    { label: "Governance", href: "/governance" },
+                    { label: "More", href: "/more" },
+                  ]}
+                  // In a real Next.js app, pass current pathname here
+                  activeHref="/"
+                />
+              </div>
+
+              {/* Right: Wallet Placeholder */}
+              <div className="flex justify-end w-1/4">
+                <AppButton variant="secondary" size="sm">
+                  Connect Wallet
+                </AppButton>
+              </div>
+            </header>
+
+            <main className="max-w-[1200px] mx-auto w-full px-4 py-6 flex-1">
+              {children}
+            </main>
+          </div>
+        </Providers>
       </body>
     </html>
   );

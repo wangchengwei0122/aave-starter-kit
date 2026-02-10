@@ -42,24 +42,20 @@ export function AppNavigationMenu({ items, activeHref }: AppNavigationMenuProps)
                     // Base Layout & Reset
                     "bg-transparent transition-all relative h-9 px-4 py-2 cursor-pointer",
                     
-                    // Text Colors (Dark Header Context)
-                    // Inactive: Use text-secondary with high opacity for "greyish white" look
-                    // Avoid text-muted as it might be too dark on bg-primary
-                    "text-text-secondary dark:text-text-muted hover:text-text-inverted",
+                    // Inactive: Muted text
+                    "text-muted-foreground",
                     
-                    // Hover State
-                    // Subtle background lift using elevated surface opacity
-                    // This works well on both light(dark-header) and dark modes
-                    !item.disabled && "hover:bg-bg-elevated/20",
+                    // Hover State: Foreground text + Accent background
+                    !item.disabled && "hover:text-foreground hover:bg-accent",
 
                     // Active State
                     isActive && [
-                      "text-text-inverted font-medium",
-                      // Active background (subtle)
-                      "bg-bg-elevated/20", 
-                      // Active Underline (Gradient)
+                      "text-foreground font-medium",
+                      // Active background (same as hover for consistency)
+                      "bg-accent", 
+                      // Active Underline (Brand Primary -> Accent)
                       "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:content-['']",
-                      "after:bg-linear-to-r after:from-state-info after:via-state-warning after:to-state-success"
+                      "after:bg-linear-to-r after:from-primary after:to-accent"
                     ],
 
                     // Disabled State

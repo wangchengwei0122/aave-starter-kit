@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import { AppNavigationMenu, AppButton, AppHeader } from "@workspace/ui/components";
+import { AppNavigationMenu, AppButton } from "@workspace/ui/components";
 import { HeaderWalletActions } from "../src/components/header-wallet-actions";
+import { ActiveHeader } from "../src/components/active-header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,18 +33,7 @@ export default function RootLayout({
       >
         <Providers>
           <div className="min-h-screen flex flex-col">
-            <AppHeader
-              navItems={[
-                { label: "Dashboard", href: "/" },
-                { label: "Markets", href: "/markets" },
-                { label: "Governance", href: "/governance" },
-              ]}
-              activeHref="/"
-              className="mb-6"
-              actions={
-                <HeaderWalletActions />
-              }
-            />
+            <ActiveHeader />
 
             <main className="max-w-[1200px] mx-auto w-full px-4 flex-1">
               {children}

@@ -39,23 +39,27 @@ export function AppNavigationMenu({ items, activeHref }: AppNavigationMenuProps)
                   href={item.disabled ? undefined : item.href}
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    // Reset base styles to transparent/cursor-pointer
-                    "bg-transparent cursor-pointer transition-all relative h-9 px-4 py-2",
+                    // Base Layout & Reset
+                    "bg-transparent transition-all relative h-9 px-4 py-2 cursor-pointer",
                     
-                    // Base Text: Muted by default (on dark header, this needs to be readable)
-                    // We use text-muted (greyish) which usually works on dark if tokens are correct.
-                    // But since header force-sets text-text-inverted, we might need to be careful.
-                    // Let's use specific token for inactive state on dark header if needed, 
-                    // or rely on opacity. Aave usually has greyish inactive text.
-                    "text-text-muted hover:text-text-inverted",
-
-                    // Hover State (subtle background change)
-                    !item.disabled && "hover:bg-bg-accent/10",
+                    // Text Colors (Dark Header Context)
+                    // Inactive: Use text-secondary with high opacity for "greyish white" look
+                    // Avoid text-muted as it might be too dark on bg-primary
+                    "text-text-secondary dark:text-text-muted hover:text-text-inverted",
+                    
+                    // Hover State
+                    // Subtle background lift using elevated surface opacity
+                    // This works well on both light(dark-header) and dark modes
+                    !item.disabled && "hover:bg-bg-elevated/20",
 
                     // Active State
                     isActive && [
-                      "text-text-inverted font-medium", // Brighter text
-                      "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-state-info after:content-['']" // Underline
+                      "text-text-inverted font-medium",
+                      // Active background (subtle)
+                      "bg-bg-elevated/20", 
+                      // Active Underline (Gradient)
+                      "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:content-['']",
+                      "after:bg-linear-to-r after:from-state-info after:via-state-warning after:to-state-success"
                     ],
 
                     // Disabled State

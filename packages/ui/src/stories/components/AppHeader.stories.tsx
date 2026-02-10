@@ -7,6 +7,11 @@ const meta = {
   component: AppHeader,
   parameters: {
     layout: "fullscreen",
+    // Set background to dark to visualize the dark header better, 
+    // or keep default to see how it contrasts with light page
+    backgrounds: {
+      default: "light",
+    },
   },
   tags: ["autodocs"],
   argTypes: {
@@ -19,7 +24,6 @@ const meta = {
       description: "Active navigation item href",
     },
     actions: {
-      control: "text", // Simple text control for demo, though it accepts ReactNode
       description: "Right-aligned actions",
     },
   },

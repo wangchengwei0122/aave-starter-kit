@@ -39,7 +39,9 @@ export function AppHeader({
   return (
     <header
       className={cn(
-        "bg-bg-surface border-border-subtle sticky top-0 z-50 w-full border-b backdrop-blur-sm",
+        // Dark surface for both light and dark modes
+        "bg-bg-primary dark:bg-bg-panel text-text-inverted border-border-default",
+        "sticky top-0 z-50 w-full border-b backdrop-blur-sm",
         "h-12", // Fixed height: 48px
         className
       )}

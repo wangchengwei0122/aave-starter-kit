@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { AppNavigationMenu, AppButton, AppHeader } from "@workspace/ui/components";
+import { HeaderWalletActions } from "../src/components/header-wallet-actions";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,9 +41,7 @@ export default function RootLayout({
               activeHref="/"
               className="mb-6"
               actions={
-                <AppButton variant="secondary" size="sm">
-                  Connect Wallet
-                </AppButton>
+                <HeaderWalletActions />
               }
             />
 

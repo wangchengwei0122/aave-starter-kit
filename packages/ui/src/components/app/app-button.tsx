@@ -13,8 +13,6 @@ export interface AppButtonProps extends Omit<ShadcnButtonProps, "variant" | "siz
 
 const AppButton = React.forwardRef<HTMLButtonElement, AppButtonProps>(
   ({ className, variant = "primary", size = "md", loading, disabled, children, ...props }, ref) => {
-    
-    // Map App variants to Shadcn variants
     const variantMap: Record<NonNullable<AppButtonProps["variant"]>, ShadcnButtonProps["variant"]> = {
       primary: "default",
       secondary: "secondary",
@@ -22,7 +20,6 @@ const AppButton = React.forwardRef<HTMLButtonElement, AppButtonProps>(
       destructive: "destructive",
     }
 
-    // Map App sizes to Shadcn sizes
     const sizeMap: Record<NonNullable<AppButtonProps["size"]>, ShadcnButtonProps["size"]> = {
       sm: "sm",
       md: "default",
@@ -37,13 +34,20 @@ const AppButton = React.forwardRef<HTMLButtonElement, AppButtonProps>(
         disabled={loading || disabled}
         aria-disabled={loading || disabled}
         className={cn(
-          // Variant overrides
-          variant === "secondary" && "border border-border-subtle shadow-xs hover:bg-secondary/90 active:scale-[0.98]",
-          variant === "ghost" && "text-text-secondary hover:text-text-primary active:bg-accent/70 active:scale-[0.98]",
-          
-          // State overrides
-          loading && "disabled:opacity-90 disabled:cursor-wait",
-          
+          "rounded-md transition-all duration-150 focus-visible:ring-2",
+          variant === "primary" && [
+            "border border-transparent bg-action-primary text-action-primary-foreground",
+            "hover:bg-action-primary-hover active:translate-y-px active:bg-action-primary-active",
+          ],
+          variant === "secondary" && [
+            "border border-border-subtle bg-action-secondary text-action-secondary-foreground",
+            "hover:bg-action-secondary-hover active:translate-y-px active:bg-action-secondary-active",
+          ],
+          variant === "ghost" && [
+            "border border-transparent bg-transparent text-text-secondary",
+            "hover:bg-accent hover:text-text-primary",
+          ],
+          loading && "disabled:cursor-wait disabled:opacity-90",
           className
         )}
         {...props}

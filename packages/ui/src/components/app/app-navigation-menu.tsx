@@ -6,7 +6,6 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "../navigation-menu"
 import { cn } from "../../lib/utils"
 
@@ -18,48 +17,31 @@ export interface AppNavigationMenuItem {
 
 export interface AppNavigationMenuProps {
   items: AppNavigationMenuItem[]
-  /**
-   * For visual testing or manual overrides of active state.
-   * In a real app, this would likely be determined by `usePathname`.
-   */
   activeHref?: string
 }
 
 export function AppNavigationMenu({ items, activeHref }: AppNavigationMenuProps) {
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
+    <NavigationMenu viewport={false} className="max-w-none">
+      <NavigationMenuList className="gap-1">
         {items.map((item) => {
           const isActive = activeHref === item.href
-          
+
           return (
             <NavigationMenuItem key={item.href}>
               <NavigationMenuLink asChild>
                 <a
                   href={item.disabled ? undefined : item.href}
                   className={cn(
-                    navigationMenuTriggerStyle(),
-                    // Base Layout & Reset
-                    "bg-transparent transition-all relative h-9 px-4 py-2 cursor-pointer",
-                    
-                    // Inactive: Muted text
-                    "text-muted-foreground",
-                    
-                    // Hover State: Foreground text + Accent background
-                    !item.disabled && "hover:text-foreground hover:bg-accent",
-
-                    // Active State
+                    "relative inline-flex h-16 items-center rounded-md px-3 text-base font-medium",
+                    "text-text-on-dark-muted transition-[color,background-color] duration-200",
+                    !item.disabled && "cursor-pointer hover:bg-bg-nav-hover/60 hover:text-text-on-dark",
                     isActive && [
-                      "text-foreground font-medium",
-                      // Active background (same as hover for consistency)
-                      "bg-accent", 
-                      // Active Underline (Brand Primary -> Accent)
-                      "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:content-['']",
-                      "after:bg-linear-to-r after:from-primary after:to-accent"
+                      "text-text-on-dark",
+                      "after:absolute after:bottom-0 after:left-3 after:right-3 after:h-0.5 after:rounded-full after:content-['']",
+                      "after:bg-linear-to-r after:from-nav-active-start after:to-nav-active-end",
                     ],
-
-                    // Disabled State
-                    item.disabled && "pointer-events-none opacity-50 cursor-not-allowed"
+                    item.disabled && "pointer-events-none opacity-50"
                   )}
                   aria-disabled={item.disabled}
                   tabIndex={item.disabled ? -1 : undefined}

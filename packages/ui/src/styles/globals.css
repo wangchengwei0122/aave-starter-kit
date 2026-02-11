@@ -3,15 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
-
 @theme {
   /* Colors - Semantic Mapping */
-
   --color-background: var(--bg-app);
-  
   --color-foreground: var(--text-primary);
-  
+
   --color-card: var(--bg-surface);
   --color-card-foreground: var(--text-primary);
 
@@ -19,52 +15,74 @@
   --color-state-warning: var(--state-warning);
   --color-state-danger: var(--state-danger);
   --color-state-info: var(--state-info);
-  
+
   --color-popover: var(--bg-elevated);
   --color-popover-foreground: var(--text-primary);
-  
+
   --color-primary: var(--bg-primary);
   --color-primary-foreground: var(--text-inverted);
-  
+
   --color-secondary: var(--bg-secondary);
   --color-secondary-foreground: var(--text-primary);
-  
+
   --color-muted: var(--bg-muted);
   --color-muted-foreground: var(--text-muted);
-  
+
   --color-accent: var(--bg-accent);
   --color-accent-foreground: var(--text-primary);
-  
+
   --color-destructive: var(--state-danger);
   --color-destructive-foreground: var(--text-inverted);
-  
+
   --color-border: var(--border-default);
   --color-input: var(--border-subtle);
   --color-ring: var(--border-strong);
-  
+
   /* Semantic Colors Extension */
   --color-bg-app: var(--bg-app);
   --color-bg-surface: var(--bg-surface);
   --color-bg-panel: var(--bg-panel);
   --color-bg-elevated: var(--bg-elevated);
-  
+
+  --color-bg-header: var(--bg-header);
+  --color-bg-hero: var(--bg-hero);
+  --color-bg-hero-stat: var(--bg-hero-stat);
+  --color-bg-nav-hover: var(--bg-nav-hover);
+
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
   --color-text-inverted: var(--text-inverted);
-  
+  --color-text-on-dark: var(--text-on-dark);
+  --color-text-on-dark-muted: var(--text-on-dark-muted);
+
   --color-border-default: var(--border-default);
   --color-border-subtle: var(--border-subtle);
   --color-border-strong: var(--border-strong);
-  
+  --color-border-header: var(--border-header);
+  --color-border-hero: var(--border-hero);
+
+  --color-nav-active-start: var(--nav-active-start);
+  --color-nav-active-end: var(--nav-active-end);
+
+  --color-action-primary: var(--bg-action-primary);
+  --color-action-primary-hover: var(--bg-action-primary-hover);
+  --color-action-primary-active: var(--bg-action-primary-active);
+  --color-action-primary-foreground: var(--text-action-primary);
+
+  --color-action-secondary: var(--bg-action-secondary);
+  --color-action-secondary-hover: var(--bg-action-secondary-hover);
+  --color-action-secondary-active: var(--bg-action-secondary-active);
+  --color-action-secondary-foreground: var(--text-action-secondary);
+
   /* DeFi Specific */
   --color-defi-apy-pos: var(--defi-apy-pos);
   --color-defi-apy-neg: var(--defi-apy-neg);
-  
+
   --color-defi-risk-low: var(--defi-risk-low);
   --color-defi-risk-mid: var(--defi-risk-mid);
   --color-defi-risk-high: var(--defi-risk-high);
-  
+
   --color-defi-health-safe: var(--defi-health-safe);
   --color-defi-health-warn: var(--defi-health-warn);
   --color-defi-health-liq: var(--defi-health-liq);
@@ -78,106 +96,139 @@
 }
 
 :root {
-  /* 
-   * Color System - Light Mode
-   * Calm, Institutional, Precise
-   * Neutrals: Hue 220, Saturation <= 6% (Perceptually Neutral)
-   */
-  
   /* Backgrounds - Elevation Ladder */
-  --bg-app: hsl(220 6% 94%);         /* Foundation (Darker than surface) */
-  --bg-surface: hsl(0 0% 100%);      /* Card Base (Pure White) */
-  --bg-panel: hsl(220 6% 97%);       /* Secondary containers/Sidebars */
-  --bg-elevated: hsl(0 0% 100%);     /* Popovers (Relies on Shadow) */
-  
-  --bg-primary: hsl(220 20% 12%);    /* Deep Navy Soft Ink */
-  --bg-secondary: hsl(220 6% 86%);   /* Button secondary */
-  --bg-muted: hsl(220 6% 92%);       /* Muted areas */
-  --bg-accent: hsl(220 6% 90%);      /* Interaction hover */
+  --bg-app: hsl(220 10% 93%);
+  --bg-surface: hsl(0 0% 100%);
+  --bg-panel: hsl(220 10% 96%);
+  --bg-elevated: hsl(0 0% 100%);
 
-  /* Typography - Soft Ink (No pure black) */
-  --text-primary: hsl(220 20% 12%);  /* Dark Navy Grey */
-  --text-secondary: hsl(220 10% 40%); /* Neutral Grey */
-  --text-muted: hsl(220 8% 55%);     /* Muted metadata */
-  --text-inverted: hsl(0 0% 100%);   /* White */
+  --bg-header: hsl(231 23% 19%);
+  --bg-hero: hsl(231 24% 21%);
+  --bg-hero-stat: hsl(232 22% 25%);
+  --bg-nav-hover: hsl(231 20% 26%);
+
+  --bg-primary: hsl(230 19% 20%);
+  --bg-secondary: hsl(220 15% 93%);
+  --bg-muted: hsl(220 9% 90%);
+  --bg-accent: hsl(220 12% 88%);
+
+  /* Typography */
+  --text-primary: hsl(225 20% 17%);
+  --text-secondary: hsl(225 13% 42%);
+  --text-muted: hsl(225 10% 56%);
+  --text-inverted: hsl(0 0% 100%);
+  --text-on-dark: hsl(225 18% 96%);
+  --text-on-dark-muted: hsl(227 14% 73%);
 
   /* Borders */
-  --border-default: hsl(220 8% 90%); /* Structural */
-  --border-subtle: hsl(220 8% 94%);  /* Dividers */
-  --border-strong: hsl(220 10% 40%); /* Active focus */
+  --border-default: hsl(222 12% 86%);
+  --border-subtle: hsl(222 13% 90%);
+  --border-strong: hsl(224 16% 42%);
+  --border-header: hsl(230 18% 31%);
+  --border-hero: hsl(229 16% 34%);
 
-  /* State Colors - Tier A (Action/Emphasis) */
-  /* Moderate saturation, clear intent */
+  /* Interactive Navigation */
+  --nav-active-start: hsl(190 95% 58%);
+  --nav-active-end: hsl(305 76% 62%);
+
+  /* Buttons */
+  --bg-action-primary: hsl(230 21% 24%);
+  --bg-action-primary-hover: hsl(230 22% 21%);
+  --bg-action-primary-active: hsl(230 24% 18%);
+  --text-action-primary: hsl(0 0% 100%);
+
+  --bg-action-secondary: hsl(220 16% 94%);
+  --bg-action-secondary-hover: hsl(220 14% 90%);
+  --bg-action-secondary-active: hsl(220 14% 87%);
+  --text-action-secondary: hsl(225 20% 23%);
+
+  /* State Colors */
   --state-success: hsl(150 40% 40%);
-  --state-warning: hsl(35 70% 50%);  /* Darker Gold */
+  --state-warning: hsl(35 70% 50%);
   --state-danger: hsl(0 60% 55%);
   --state-info: hsl(210 60% 50%);
 
-  /* DeFi Colors - Tier B (Data/Muted) */
-  /* Lower saturation for information density */
+  /* DeFi Colors */
   --defi-apy-pos: hsl(150 30% 45%);
   --defi-apy-neg: hsl(0 40% 60%);
-  
-  --defi-risk-low: hsl(150 30% 45%);       /* Safe */
-  --defi-risk-mid: hsl(35 60% 50%);        /* Warning */
-  --defi-risk-high: hsl(0 40% 60%);        /* Danger */
-  
+
+  --defi-risk-low: hsl(150 30% 45%);
+  --defi-risk-mid: hsl(35 60% 50%);
+  --defi-risk-high: hsl(0 40% 60%);
+
   --defi-health-safe: hsl(150 30% 45%);
   --defi-health-warn: hsl(35 60% 50%);
   --defi-health-liq: hsl(0 40% 60%);
 
-  /* Radius (Preserved) */
+  /* Radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  --radius-card: 0.75rem;
+  --radius-card: 1rem;
 }
 
 .dark {
-  /* 
-   * Color System - Dark Mode
-   * Obsidian, Depth, Soft-White
-   * Neutrals: Hue 220, Saturation <= 10%
-   */
-
   /* Backgrounds - Elevation Ladder */
-  --bg-app: hsl(220 10% 6%);         /* Deep Obsidian */
-  --bg-surface: hsl(220 8% 10%);     /* Card Base (+4L) */
-  --bg-panel: hsl(220 8% 14%);       /* Sidebars (+4L) */
-  --bg-elevated: hsl(220 8% 18%);    /* Popovers (+4L) */
+  --bg-app: hsl(220 13% 8%);
+  --bg-surface: hsl(220 12% 12%);
+  --bg-panel: hsl(220 12% 15%);
+  --bg-elevated: hsl(220 12% 18%);
 
-  --bg-primary: hsl(220 10% 94%);    /* Soft White */
-  --bg-secondary: hsl(220 8% 16%);   /* Button secondary */
-  --bg-muted: hsl(220 8% 16%);       /* Muted foundations */
-  --bg-accent: hsl(220 8% 22%);      /* Interaction hover */
+  --bg-header: hsl(231 23% 13%);
+  --bg-hero: hsl(231 22% 15%);
+  --bg-hero-stat: hsl(230 18% 20%);
+  --bg-nav-hover: hsl(229 18% 24%);
 
-  /* Typography - Soft White (No pure white text) */
-  --text-primary: hsl(220 10% 94%);  /* Soft White */
-  --text-secondary: hsl(220 8% 65%); /* Cool Grey */
-  --text-muted: hsl(220 6% 45%);     /* Darker Grey */
-  --text-inverted: hsl(220 10% 6%);  /* Deep Obsidian */
+  --bg-primary: hsl(220 12% 92%);
+  --bg-secondary: hsl(220 11% 20%);
+  --bg-muted: hsl(220 10% 17%);
+  --bg-accent: hsl(220 10% 23%);
+
+  /* Typography */
+  --text-primary: hsl(220 12% 93%);
+  --text-secondary: hsl(220 10% 68%);
+  --text-muted: hsl(220 8% 48%);
+  --text-inverted: hsl(220 13% 8%);
+  --text-on-dark: hsl(220 12% 95%);
+  --text-on-dark-muted: hsl(220 10% 70%);
 
   /* Borders */
-  --border-default: hsl(220 8% 20%);
-  --border-subtle: hsl(220 8% 14%);
-  --border-strong: hsl(220 8% 65%);
+  --border-default: hsl(220 10% 23%);
+  --border-subtle: hsl(220 10% 18%);
+  --border-strong: hsl(220 10% 64%);
+  --border-header: hsl(230 15% 30%);
+  --border-hero: hsl(228 14% 34%);
 
-  /* State Colors - Tier A (Action) */
-  --state-success: hsl(150 40% 50%); /* Slightly brighter for dark mode */
+  /* Interactive Navigation */
+  --nav-active-start: hsl(191 93% 62%);
+  --nav-active-end: hsl(303 78% 68%);
+
+  /* Buttons */
+  --bg-action-primary: hsl(228 18% 32%);
+  --bg-action-primary-hover: hsl(228 19% 37%);
+  --bg-action-primary-active: hsl(228 19% 28%);
+  --text-action-primary: hsl(220 12% 95%);
+
+  --bg-action-secondary: hsl(220 11% 20%);
+  --bg-action-secondary-hover: hsl(220 11% 24%);
+  --bg-action-secondary-active: hsl(220 11% 28%);
+  --text-action-secondary: hsl(220 12% 90%);
+
+  /* State Colors */
+  --state-success: hsl(150 40% 50%);
   --state-warning: hsl(35 70% 50%);
   --state-danger: hsl(0 60% 65%);
   --state-info: hsl(210 60% 60%);
 
-  /* DeFi Colors - Tier B (Data) */
-  /* Muted, readable against dark bg */
+  /* DeFi Colors */
   --defi-apy-pos: hsl(150 25% 50%);
   --defi-apy-neg: hsl(0 35% 65%);
 
   --defi-risk-low: hsl(150 25% 50%);
   --defi-risk-mid: hsl(35 60% 55%);
   --defi-risk-high: hsl(0 35% 65%);
-  
+
   --defi-health-safe: hsl(150 25% 50%);
   --defi-health-warn: hsl(35 60% 55%);
   --defi-health-liq: hsl(0 35% 65%);
@@ -187,6 +238,7 @@
   * {
     @apply border-border-default outline-ring/50;
   }
+
   body {
     @apply bg-bg-app text-text-primary antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;

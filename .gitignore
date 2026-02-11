@@ -64,6 +64,7 @@ next-env.d.ts
 *.pem
 
 .agent
+.codex/
 
 # Storybook
 storybook-static/

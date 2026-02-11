@@ -15,7 +15,6 @@ export function ActiveHeader() {
         { label: "Governance", href: "/governance" },
       ]}
       activeHref={pathname}
-      className="mb-6"
       actions={<HeaderWalletActions />}
     />
   )

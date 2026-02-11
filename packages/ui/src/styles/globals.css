@@ -4,7 +4,6 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Colors - Semantic Mapping */
   --color-background: var(--bg-app);
   --color-foreground: var(--text-primary);
 
@@ -38,7 +37,6 @@
   --color-input: var(--border-subtle);
   --color-ring: var(--border-strong);
 
-  /* Semantic Colors Extension */
   --color-bg-app: var(--bg-app);
   --color-bg-surface: var(--bg-surface);
   --color-bg-panel: var(--bg-panel);
@@ -48,6 +46,9 @@
   --color-bg-hero: var(--bg-hero);
   --color-bg-hero-stat: var(--bg-hero-stat);
   --color-bg-nav-hover: var(--bg-nav-hover);
+  --color-bg-wallet: var(--bg-wallet);
+  --color-bg-wallet-hover: var(--bg-wallet-hover);
+  --color-bg-wallet-active: var(--bg-wallet-active);
 
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
@@ -55,12 +56,14 @@
   --color-text-inverted: var(--text-inverted);
   --color-text-on-dark: var(--text-on-dark);
   --color-text-on-dark-muted: var(--text-on-dark-muted);
+  --color-text-wallet: var(--text-wallet);
 
   --color-border-default: var(--border-default);
   --color-border-subtle: var(--border-subtle);
   --color-border-strong: var(--border-strong);
   --color-border-header: var(--border-header);
   --color-border-hero: var(--border-hero);
+  --color-border-wallet: var(--border-wallet);
 
   --color-nav-active-start: var(--nav-active-start);
   --color-nav-active-end: var(--nav-active-end);
@@ -75,7 +78,6 @@
   --color-action-secondary-active: var(--bg-action-secondary-active);
   --color-action-secondary-foreground: var(--text-action-secondary);
 
-  /* DeFi Specific */
   --color-defi-apy-pos: var(--defi-apy-pos);
   --color-defi-apy-neg: var(--defi-apy-neg);
 
@@ -87,7 +89,6 @@
   --color-defi-health-warn: var(--defi-health-warn);
   --color-defi-health-liq: var(--defi-health-liq);
 
-  /* Radius */
   --radius-radius: var(--radius-card);
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
@@ -96,7 +97,6 @@
 }
 
 :root {
-  /* Backgrounds - Elevation Ladder */
   --bg-app: hsl(220 10% 93%);
   --bg-surface: hsl(0 0% 100%);
   --bg-panel: hsl(220 10% 96%);
@@ -106,32 +106,33 @@
   --bg-hero: hsl(231 24% 21%);
   --bg-hero-stat: hsl(232 22% 25%);
   --bg-nav-hover: hsl(231 20% 26%);
+  --bg-wallet: hsl(230 20% 28%);
+  --bg-wallet-hover: hsl(230 19% 24%);
+  --bg-wallet-active: hsl(230 21% 20%);
 
   --bg-primary: hsl(230 19% 20%);
   --bg-secondary: hsl(220 15% 93%);
   --bg-muted: hsl(220 9% 90%);
   --bg-accent: hsl(220 12% 88%);
 
-  /* Typography */
   --text-primary: hsl(225 20% 17%);
   --text-secondary: hsl(225 13% 42%);
   --text-muted: hsl(225 10% 56%);
   --text-inverted: hsl(0 0% 100%);
   --text-on-dark: hsl(225 18% 96%);
   --text-on-dark-muted: hsl(227 14% 73%);
+  --text-wallet: hsl(225 18% 96%);
 
-  /* Borders */
   --border-default: hsl(222 12% 86%);
   --border-subtle: hsl(222 13% 90%);
   --border-strong: hsl(224 16% 42%);
   --border-header: hsl(230 18% 31%);
   --border-hero: hsl(229 16% 34%);
+  --border-wallet: hsl(229 17% 36%);
 
-  /* Interactive Navigation */
   --nav-active-start: hsl(190 95% 58%);
   --nav-active-end: hsl(305 76% 62%);
 
-  /* Buttons */
   --bg-action-primary: hsl(230 21% 24%);
   --bg-action-primary-hover: hsl(230 22% 21%);
   --bg-action-primary-active: hsl(230 24% 18%);
@@ -142,13 +143,11 @@
   --bg-action-secondary-active: hsl(220 14% 87%);
   --text-action-secondary: hsl(225 20% 23%);
 
-  /* State Colors */
   --state-success: hsl(150 40% 40%);
   --state-warning: hsl(35 70% 50%);
   --state-danger: hsl(0 60% 55%);
   --state-info: hsl(210 60% 50%);
 
-  /* DeFi Colors */
   --defi-apy-pos: hsl(150 30% 45%);
   --defi-apy-neg: hsl(0 40% 60%);
 
@@ -160,7 +159,6 @@
   --defi-health-warn: hsl(35 60% 50%);
   --defi-health-liq: hsl(0 40% 60%);
 
-  /* Radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
@@ -169,7 +167,6 @@
 }
 
 .dark {
-  /* Backgrounds - Elevation Ladder */
   --bg-app: hsl(220 13% 8%);
   --bg-surface: hsl(220 12% 12%);
   --bg-panel: hsl(220 12% 15%);
@@ -179,32 +176,33 @@
   --bg-hero: hsl(231 22% 15%);
   --bg-hero-stat: hsl(230 18% 20%);
   --bg-nav-hover: hsl(229 18% 24%);
+  --bg-wallet: hsl(230 19% 28%);
+  --bg-wallet-hover: hsl(230 19% 33%);
+  --bg-wallet-active: hsl(230 19% 24%);
 
   --bg-primary: hsl(220 12% 92%);
   --bg-secondary: hsl(220 11% 20%);
   --bg-muted: hsl(220 10% 17%);
   --bg-accent: hsl(220 10% 23%);
 
-  /* Typography */
   --text-primary: hsl(220 12% 93%);
   --text-secondary: hsl(220 10% 68%);
   --text-muted: hsl(220 8% 48%);
   --text-inverted: hsl(220 13% 8%);
   --text-on-dark: hsl(220 12% 95%);
   --text-on-dark-muted: hsl(220 10% 70%);
+  --text-wallet: hsl(220 12% 95%);
 
-  /* Borders */
   --border-default: hsl(220 10% 23%);
   --border-subtle: hsl(220 10% 18%);
   --border-strong: hsl(220 10% 64%);
   --border-header: hsl(230 15% 30%);
   --border-hero: hsl(228 14% 34%);
+  --border-wallet: hsl(229 14% 39%);
 
-  /* Interactive Navigation */
   --nav-active-start: hsl(191 93% 62%);
   --nav-active-end: hsl(303 78% 68%);
 
-  /* Buttons */
   --bg-action-primary: hsl(228 18% 32%);
   --bg-action-primary-hover: hsl(228 19% 37%);
   --bg-action-primary-active: hsl(228 19% 28%);
@@ -215,13 +213,11 @@
   --bg-action-secondary-active: hsl(220 11% 28%);
   --text-action-secondary: hsl(220 12% 90%);
 
-  /* State Colors */
   --state-success: hsl(150 40% 50%);
   --state-warning: hsl(35 70% 50%);
   --state-danger: hsl(0 60% 65%);
   --state-info: hsl(210 60% 60%);
 
-  /* DeFi Colors */
   --defi-apy-pos: hsl(150 25% 50%);
   --defi-apy-neg: hsl(0 35% 65%);
 

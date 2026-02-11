@@ -22,16 +22,16 @@ export function AppHeader({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 h-16 w-full border-b border-border-header bg-bg-header text-text-on-dark",
+        "sticky top-0 z-50 h-12 w-full border-b border-border-header bg-bg-header text-text-on-dark",
         "backdrop-blur supports-[backdrop-filter]:bg-bg-header/95",
         className
       )}
     >
       <div className="mx-auto flex h-full w-full max-w-[1200px] items-center px-4 sm:px-6 lg:px-8">
-        <div className="flex min-w-0 items-center gap-7">
-          <div className="flex items-center">
+        <div className="flex min-w-0 items-center gap-6">
+          <div className="flex h-12 items-center">
             {logo || (
-              <span className="text-3xl font-semibold leading-none tracking-tight text-text-on-dark">
+              <span className="text-2xl font-semibold leading-none tracking-tight text-text-on-dark">
                 Aave
               </span>
             )}
@@ -45,7 +45,7 @@ export function AppHeader({
           )}
         </div>
 
-        <div className="ml-auto flex items-center gap-3">{actions}</div>
+        <div className="ml-auto flex h-12 items-center gap-2">{actions}</div>
       </div>
     </header>
   )

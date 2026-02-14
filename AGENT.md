@@ -2,249 +2,224 @@
 
 ## 0. Purpose
 
-This repository is a **production-grade AAVE-like DeFi Lending frontend**, not a demo.
+This repository is a production-grade AAVE-like DeFi Lending frontend.
+It is not a demo and not a playground.
 
-This file is the **highest-priority engineering constraint** for all AI-assisted development.
-If any request conflicts with this document, the AI must stop and ask for clarification before coding.
-
----
-
-## 1. Repository Reality Snapshot (Must Stay Aligned)
-
-Current verified monorepo structure:
-
-- `apps/web`: Next.js app (App Router), wallet connect shell, page composition.
-- `packages/ui`: shared UI system (`shadcn` primitives + `App*` wrappers + Storybook + tokens).
-- `packages/shared`: placeholder package (no active domain/web3 logic yet).
-- `packages/web3`: **not present yet**.
-- `packages/domain`: **not present yet**.
-
-Current verified facts:
-
-1. UI system already has `App*` components under `packages/ui/src/components/app`.
-2. Primitive components exist under `packages/ui/src/components` (internal layer).
-3. Design tokens + CSS variables are centralized in:
-- `packages/ui/src/styles/globals.css`
-- consumed by `apps/web/app/globals.css`
-4. On-chain connectivity currently lives in `apps/web/app/providers.tsx` using:
-- `wagmi` (`WagmiProvider`, chains)
-- `viem` (`http` transport)
-- `@rainbow-me/rainbowkit`
-5. Financial formulas (APY/Health Factor/Ray/Liquidation Threshold) are **not centralized in a domain module yet**.
-
-Any future AGENT.md update must re-verify these facts from code before changing constraints.
+This file is the highest-priority constraint for all AI contributors.
+When a request conflicts with this document, AI must pause and ask before coding.
 
 ---
 
-## 2. Non-Negotiable Rules (AI MUST Follow)
+## 1. Current Repository Snapshot (Fact-Based)
+
+Current verified structure:
+
+- `apps/web`: Next.js App Router application.
+- `packages/ui`: design system package (shadcn primitives + `App*` wrappers + Storybook + tokens).
+- `packages/shared`: currently a placeholder package.
+- `packages/web3`: not created yet.
+- `packages/domain`: not created yet.
+
+Current verified implementation facts:
+
+1. App-level components already exist under `packages/ui/src/components/app`.
+2. Primitive shadcn-based components exist under `packages/ui/src/components`.
+3. Token source of truth is `packages/ui/src/styles/globals.css`, consumed by `apps/web/app/globals.css`.
+4. Wallet/chains/provider setup currently lives in `apps/web/app/providers.tsx` (`wagmi` + `viem` + `rainbowkit`).
+5. APY/HF/Ray/LTV formulas are not centralized in a dedicated domain package yet.
+
+---
+
+## 2. Architecture Target (Long-Term Canonical)
+
+The preferred long-term monorepo package layout is:
+
+- `packages/ui`: pure presentation and design system
+- `packages/web3`: chain config, clients, contract access, on-chain adapters
+- `packages/domain`: pure DeFi business math and protocol rules
+- `packages/config`: shared runtime config and env schema (zod)
+- `packages/types`: shared cross-package types (minimal and stable)
+
+`packages/shared` should not grow as a miscellaneous bucket.
+New shared logic should be placed into explicit packages above.
+
+---
+
+## 3. Non-Negotiable Rules
 
 1. Do not introduce new UI libraries without explicit approval.
-2. Do not use raw `shadcn` primitives directly in `apps/web` pages/features.
-3. Do not bypass the `App*` layer for product UI.
-4. Do not use inline styles for visual design.
-5. Do not use raw colors (hex/rgb/hsl/named Tailwind colors like `text-blue-500`).
-6. All colors must come from existing design tokens defined in `globals.css`.
+2. Do not use primitive shadcn components directly in app/business code.
+3. Product UI must go through `App*` components.
+4. No inline style for presentation.
+5. No raw colors (`#hex`, `rgb`, `hsl`, or `text-blue-500` style classes).
+6. All colors must come from existing design tokens.
 7. Do not invent new tokens unless explicitly requested.
-8. Do not mix business logic into UI components.
-9. Do not make silent architecture changes.
+8. Do not place business math in UI components.
+9. Do not place ABI/address literals in page files.
+10. Do not do unrelated refactors in scoped tasks.
 
-Violation of any rule above is a blocking error.
+Violation is a blocking error.
 
 ---
 
-## 3. Layered Architecture Contract
+## 4. Layer Contracts
 
-### 3.1 Page Layer (`apps/web/app/**`)
+### 4.1 Page Layer (`apps/web/app/**`)
 
-Responsibilities:
+Allowed:
 
-- Route entry and layout composition only.
-- Compose existing feature blocks and `App*` components.
-- Bind user interaction to hooks/actions.
+- route entry
+- composition
+- interaction orchestration
 
 Forbidden:
 
-- Financial formula implementation.
-- Direct contract ABI/address logic.
-- Raw primitive UI composition from `shadcn` internals.
+- financial formula implementation
+- ABI/address constants
+- direct low-level contract calls
 
-### 3.2 UI Layer (`packages/ui/**`)
+### 4.2 UI Layer (`packages/ui/**`)
 
-Responsibilities:
+Allowed:
 
-- Pure presentational components.
-- Stable, deterministic visual behavior.
-- State presentation (`loading`, `disabled`, `active`, `error`) from props.
+- pure presentation
+- semantic variants and visual states
 
 Forbidden:
 
-- RPC calls / wallet state / chain state.
-- APY/HF/risk math.
-- Protocol business decisions.
+- wallet/chain state logic
+- contract reads/writes
+- APY/HF/LTV/Ray calculations
 
-### 3.3 Web3 Layer (Target: `packages/web3/**`)
+### 4.3 Web3 Layer (`packages/web3/**`, target)
 
-Current status:
+Responsibilities:
 
-- Not extracted yet; temporary logic exists in `apps/web/app/providers.tsx`.
+- chain registry and transports
+- wagmi/viem clients
+- contract metadata (abi/address maps)
+- read/write adapters and query wrappers
 
-Required direction:
+Constraint:
 
-- Centralize chain config, public/wallet clients, contract read/write wrappers, and address maps.
-- Expose typed hooks/services to app layer.
-- Keep page/components free from ABI/address literals.
+- app layer consumes exported APIs only
+- no deep import into private internals
 
-### 3.4 Domain Layer (Target: `packages/domain/**`)
+### 4.4 Domain Layer (`packages/domain/**`, target)
 
-Current status:
+Responsibilities:
 
-- Not extracted yet.
+- APY/APR calculations
+- Ray/Wad conversion
+- Health Factor
+- LTV/Liquidation Threshold logic
+- risk/position pure computations
 
-Required direction:
+Constraint:
 
-- Centralize all DeFi financial calculations and unit conversions.
-- Provide pure, reusable, tested functions.
-- Be framework-agnostic (no React, no UI dependency).
+- pure functions only
+- no React, no wagmi, no DOM
 
----
+### 4.5 Config/Types Layers (`packages/config`, `packages/types`, target)
 
-## 4. DeFi Financial Logic Red Lines
+Responsibilities:
 
-AI must never guess or improvise protocol formulas.
+- environment schema and parsing
+- chain/app feature flags
+- stable shared type contracts
 
-The following must live in domain modules only (reusable + testable):
+Constraint:
 
-1. APY/APR related computation
-2. Ray/Wad unit conversion (`1e27`, `1e18` scale handling)
-3. Health Factor computation
-4. Liquidation Threshold / LTV / collateral risk math
-5. Interest accrual and utilization-derived values
-
-Hard rules:
-
-- No formula literals scattered in pages/components/hooks.
-- No “temporary approximate formula” in product code.
-- If official formula source is missing, AI must stop and request spec source.
+- do not move business logic into these packages
 
 ---
 
-## 5. UI & Design Token Rules
+## 5. DeFi Formula Red Lines
 
-1. Token source of truth is `packages/ui/src/styles/globals.css`.
-2. Use semantic token classes only (e.g. `bg-bg-app`, `text-text-primary`, `border-border-subtle`).
-3. Keep visual API semantic (`intent`, `size`, `variant`), not arbitrary style props.
-4. `App*` components wrap primitives; primitives are internal implementation detail.
-5. Any new `App*` component must include Storybook stories:
-- variants
-- sizes
-- states (disabled/loading/interactive)
+AI must never guess protocol formulas.
 
----
+The following must be centralized in `packages/domain` and reusable:
 
-## 6. Import Boundary Rules
+1. APY/APR formula logic
+2. Ray/Wad unit conversions (`1e27`, `1e18`)
+3. Health Factor formula
+4. Liquidation Threshold and LTV logic
+5. utilization/interest related calculations
 
-1. In `apps/web`, prefer imports from:
-- `@workspace/ui/components/app` for app-level components
-- `@workspace/ui/components` only when consuming approved app exports
-2. Do not import primitive files directly from `packages/ui/src/components/*` in app/business code.
-3. Do not import from deep private paths unless no public export exists and user approved.
-4. When `packages/web3` and `packages/domain` are created, app code must consume them via package entrypoints, not deep file paths.
+If protocol source/spec is missing, AI must stop and ask.
+No approximate formula is allowed in production code.
 
 ---
 
-## 7. AI Development Workflow (Mandatory per Task)
+## 6. UI & Token Rules
 
-For every coding task, AI must follow this order:
-
-1. Plan first:
-- list files to read
-- list files to modify
-- list files intentionally untouched
-2. Scope lock:
-- modify only requested or clearly required files
-- no opportunistic refactor
-3. Implement minimal diff:
-- keep behavior focused on requested goal
-4. Report:
-- provide changed file list
-- provide concise diff summary
-- provide TODO/follow-up list (if any)
-
-If the request conflicts with architecture boundaries, AI must pause and ask before implementation.
+1. Token source of truth: `packages/ui/src/styles/globals.css`.
+2. Use semantic token classes only.
+3. App-level UI APIs should be semantic (`intent`, `size`, `variant`) and deterministic.
+4. Every new `App*` component must include Storybook stories for variants/sizes/states.
+5. Pages/features should not style around tokens with one-off visual hacks.
 
 ---
 
-## 8. Skills Policy (Built-in Skills Must Be Prioritized)
+## 7. AI Execution Workflow (Mandatory)
 
-If the following skills exist in repo/session, AI must use them first instead of inventing ad-hoc implementation patterns.
+For every coding task, AI must:
 
-### 8.1 `app-design-system`
+1. provide a short plan first
+2. explicitly list files to modify
+3. avoid out-of-scope refactors
+4. implement minimal necessary diff
+5. return change summary + TODO/follow-ups
 
-Must be used for:
-
-- creating/updating `App*` components
-- defining component API variants/states
-- Storybook completion for design system components
-
-### 8.2 `page-composer`
-
-Must be used for:
-
-- static page composition
-- decomposing page blocks into App-level vs Business-level components
-
-### 8.3 `frontend-design` / `ui-ux-pro-max`
-
-Use only when user explicitly asks for visual redesign/high-fidelity UI exploration.
-Do not use to bypass existing token/component constraints.
-
-Hard rule:
-
-- AI must not bypass applicable skills and directly invent a conflicting architecture.
+If blocked by architecture conflict, ask first.
 
 ---
 
-## 9. Definition of Done (DoD)
+## 8. Skills Policy (Mandatory Use)
+
+When applicable, AI must prioritize built-in skills over ad-hoc implementation:
+
+1. `app-design-system`
+- for new/updated `App*` components and Storybook
+
+2. `page-composer`
+- for static DeFi page composition and block decomposition
+
+3. `frontend-design` / `ui-ux-pro-max`
+- only when user explicitly requests visual redesign/exploration
+- cannot bypass token and architecture constraints
+
+---
+
+## 9. Definition of Done
 
 A change is complete only if:
 
-1. Layer boundaries remain intact.
-2. No token violations introduced.
-3. No primitive bypass introduced.
-4. New UI component changes include/align Storybook coverage.
-5. DeFi formulas are centralized (or explicitly marked blocked, not guessed).
-6. Output includes diff summary + TODO.
+1. layer boundaries remain clean
+2. no token violations are introduced
+3. no primitive bypass is introduced
+4. formulas are centralized or explicitly marked blocked
+5. output includes diff summary and TODO items
 
 ---
 
-## 10. Explicitly Forbidden Behaviors
+## 10. Transition Guardrails
 
-1. Mixing contract calls directly into presentational UI components.
-2. Placing APY/HF calculations in pages or component render logic.
-3. Introducing hard-coded addresses/ABIs in page files.
-4. Re-styling components with arbitrary colors/shadows outside tokens.
-5. Refactoring unrelated modules during a scoped task.
-6. Creating duplicate component systems outside `packages/ui`.
+Before `packages/web3` and `packages/domain` are created:
 
----
+1. do not spread new chain logic across page files
+2. place new helpers in migration-friendly modules
+3. keep extraction path explicit and low-risk
 
-## 11. Migration Guardrails (Current to Target)
+After those packages are created:
 
-Because `packages/web3` and `packages/domain` are not yet present:
-
-1. New on-chain logic should not further spread across pages.
-2. Prefer introducing reusable modules with clear extraction path.
-3. Any newly added formula/helper must be placed where it can be moved to `packages/domain` with zero behavior change.
-4. Once `packages/web3` / `packages/domain` are created, update imports immediately to enforce boundary.
+1. migrate imports to package entrypoints
+2. remove legacy page-level formula/web3 logic
+3. keep `apps/web` as orchestrator only
 
 ---
 
-## 12. Enforcement Statement
+## 11. Companion Document
 
-This AGENT.md is an enforceable engineering contract for AI contributors.
-
-When uncertain:
-
-- prefer strictness over convenience
-- prefer consistency over speed
-- ask for clarification instead of making protocol assumptions
+`STRUCTURE.md` is the operational directory blueprint and migration plan.
+If AGENT rules and STRUCTURE details conflict, AGENT rules take precedence.

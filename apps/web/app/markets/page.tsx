@@ -1,8 +1,14 @@
-export default function Markets() {
+"use client";
+
+import { MarketTopPanel } from "@/src/components/market-top-panel";
+import { AssetsList } from "@/src/components/assets-list";
+
+export default function MarketsPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4">
-      <h1 className="text-4xl font-bold">Markets</h1>
-      <p className="text-muted-foreground">Markets page coming soon...</p>
+    <div className="bg-background min-h-screen">
+      <MarketTopPanel />
+      {/* We reuse AssetsList here to simulate the markets view for now */}
+      <AssetsList />
     </div>
   );
 }

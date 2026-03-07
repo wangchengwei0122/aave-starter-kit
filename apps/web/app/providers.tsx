@@ -47,6 +47,7 @@ const config = getDefaultConfig({
     [mainnet.id]: http(),
     [sepolia.id]: http(),
   },
+  ssr: true,
 });
 
 export function Providers({ children }: { children: ReactNode }) {

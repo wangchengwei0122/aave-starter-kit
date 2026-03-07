@@ -1,36 +1,43 @@
-import { useAaveReserves } from "@aave/react"
+import { useAaveMarkets } from "@aave/react"
+import { ChainId } from "@aave/types"
 import { AAVE_V3_ADDRESSES, DEFAULT_CHAIN_ID } from "../constants/addresses";
 
 /**
  * Hook to fetch and format Aave reserves (markets) data for the UI.
  * This abstracts away the underlying Aave SDK and returns simplified View Models.
  */
-export function useAaveMarkets() {
-  // We use the Aave React hook under the hood. 
-  // For V3, the UI pool data provider address can be passed explicitly if needed,
-  // but AaveKit handles default resolving. We pass it for explicitness matching Phase 1 specs.
-  const { data, isLoading, isError, error } = useAaveReserves({
-    poolDataProviderAddress: AAVE_V3_ADDRESSES.mainnet.uiPoolDataProviderV3 as `0x${string}`,
-    chainId: DEFAULT_CHAIN_ID,
+export function useAaveMarketsQuery() {
+  const result = useAaveMarkets({
+    chainIds: [DEFAULT_CHAIN_ID as unknown as ChainId],
+    user: undefined // optional according to typings but better explicit when no wallet is connected
   });
-
-  // The UI needs simple mapped view models. We map the raw reserve data.
-  // We're converting raw values (like totalSupplied in base units) to simpler strings for now.
-  // In Phase 5/6 we would use domain math (like @aave/math-utils) for precise conversions,
-  // but AaveKit already formats APYs and some balances if configured correctly.
   
-  const formattedMarkets = data?.map((reserve) => {
+  // Depending on how Suspense is used, it might return { data } or { data, loading, error }
+  // We'll safely access what's available
+  const data = result.data;
+  const isLoading = 'loading' in result ? result.loading : false;
+  const error = 'error' in result ? result.error : undefined;
+  const isError = !!error;
+
+  const formattedMarkets = data?.map((market) => {
+    // A single market contains an array of supplyReserves and borrowReserves
+    // The previous error showed `supplyReserves` array contains a `Reserve` object with `supplyInfo`, `borrowInfo`, `underlyingToken` etc.
+    const supplyReserve = market.supplyReserves && market.supplyReserves.length > 0 ? market.supplyReserves[0] : null;
+    const borrowReserve = market.borrowReserves && market.borrowReserves.length > 0 ? market.borrowReserves[0] : null;
+    
+    // We will use supplyReserve for token info and supply APY, and borrowReserve for borrow APY
+    // if supplyReserve is missing, fallback to borrowReserve for token details
+    const reserveToken = supplyReserve?.underlyingToken || borrowReserve?.underlyingToken;
+
     return {
-      id: reserve.underlyingAsset,
-      symbol: reserve.symbol,
-      name: reserve.name,
-      // For now, these are placeholder formatted values as requested by Phase 2 specs ("static skeletons")
-      // later we will wire the exact math here.
-      supplyApy: reserve.supplyAPY, 
-      variableBorrowApy: reserve.variableBorrowAPY,
-      totalSupplied: reserve.totalLiquidity,
-      availableToBorrow: reserve.availableLiquidity,
-      canBeCollateral: reserve.usageAsCollateralEnabled,
+      id: reserveToken?.address || market.address,
+      symbol: reserveToken?.symbol || "N/A",
+      name: reserveToken?.name || market.name,
+      supplyApy: supplyReserve?.supplyInfo?.apy?.formatted || "0", 
+      variableBorrowApy: borrowReserve?.borrowInfo?.apy?.formatted || "0",
+      totalSupplied: supplyReserve?.supplyInfo?.total?.value || "0",
+      availableToBorrow: borrowReserve?.borrowInfo?.availableLiquidity?.amount?.value || "0",
+      canBeCollateral: supplyReserve?.supplyInfo?.canBeCollateral || false,
     }
   }) || [];
 

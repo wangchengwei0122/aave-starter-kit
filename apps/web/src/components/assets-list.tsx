@@ -59,10 +59,14 @@ export function AssetsList() {
                     </div>
                   </AppTableCell>
                   <AppTableCell align="right">
-                      <AppSkeleton className="h-5 w-16 ml-auto" />
+                    <AppText className="font-medium text-sm">
+                      {item.walletBalance || "—"}
+                    </AppText>
                   </AppTableCell>
                   <AppTableCell align="right">
-                     <AppSkeleton className="h-5 w-12 ml-auto" />
+                     <AppText className="font-medium text-sm">
+                       {(Number(item.supplyApy) * 100).toFixed(2)}%
+                     </AppText>
                   </AppTableCell>
                   <AppTableCell align="center">
                     {item.canBeCollateral && <span className="text-green-500 font-bold">✓</span>}
@@ -106,13 +110,19 @@ export function AssetsList() {
                     </div>
                   </AppTableCell>
                   <AppTableCell align="right">
-                    <div className="flex flex-col items-end gap-1.5">
-                      <AppSkeleton className="h-5 w-16" />
-                      <AppSkeleton className="h-4 w-12" />
+                    <div className="flex flex-col items-end gap-1">
+                      <AppText className="font-medium text-sm">
+                       {Number(item.availableToBorrow).toFixed(2)}
+                      </AppText>
+                      <AppText className="text-xs text-muted-foreground">
+                        {item.symbol}
+                      </AppText>
                     </div>
                   </AppTableCell>
                   <AppTableCell align="right">
-                     <AppSkeleton className="h-5 w-12 ml-auto" />
+                     <AppText className="font-medium text-sm">
+                       {(Number(item.variableBorrowApy) * 100).toFixed(2)}%
+                     </AppText>
                   </AppTableCell>
                   <AppTableCell align="right">
                     <div className="flex items-center justify-end gap-2">

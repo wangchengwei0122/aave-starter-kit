@@ -1,0 +1,15 @@
+{
+  "extends": "@workspace/shared/tsconfig.json",
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "module": "esnext",
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["src", "index.ts"],
+  "exclude": ["node_modules"]
+}

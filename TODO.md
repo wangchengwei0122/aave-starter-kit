@@ -19,11 +19,11 @@
 
 ## Phase 1 — Web3 Skeleton (Route B)
 
-- [ ] T1-1 Create `packages/web3` package scaffold (tsconfig/package.json/index.ts)
-- [ ] T1-2 Add AaveProvider wrapper in `packages/web3` (no page wiring)
-- [ ] T1-3 Add read-only hook: `useAaveMarkets()` (returns typed minimal view model)
-- [ ] T1-4 Add read-only hook: `useUserPositions()` placeholder (BLOCKED if wallet not ready)
-- [ ] T1-5 Add addresses/abis registry placeholder (no literals in pages)
+- [x] T1-1 Create `packages/web3` package scaffold (tsconfig/package.json/index.ts)
+- [x] T1-2 Add AaveProvider wrapper in `packages/web3` (no page wiring)
+- [x] T1-3 Add read-only hook: `useAaveMarkets()` (returns typed minimal view model)
+- [x] T1-4 Add read-only hook: `useUserPositions()` placeholder (BLOCKED if wallet not ready)
+- [x] T1-5 Add addresses/abis registry placeholder (no literals in pages)
 
 ---
 

@@ -1,0 +1,19 @@
+{
+  "name": "@workspace/web3",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "lint": "biome check .",
+    "format": "biome format --write ."
+  },
+  "dependencies": {
+    "@aave/react": "^3.0.0",
+    "@tanstack/react-query": "^5.0.0",
+    "viem": "^2.0.0",
+    "wagmi": "^2.0.0"
+  },
+  "devDependencies": {
+    "@workspace/shared": "workspace:*",
+    "typescript": "^5.0.0"
+  }
+}

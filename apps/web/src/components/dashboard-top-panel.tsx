@@ -1,5 +1,6 @@
 import * as React from "react"
 import { AppText, AppTooltip, AppSkeleton, AppBadge } from "@workspace/ui/components"
+import { useUserPositions } from "@workspace/web3"
 import { Info } from "lucide-react"
 
 interface StatCardProps {
@@ -44,6 +45,7 @@ function StatCard({ label, value, subValue, tooltip, blocked }: StatCardProps) {
 }
 
 export function DashboardTopPanel() {
+  const { netWorth, healthFactor, isBlocked } = useUserPositions()
   return (
     <div className="w-full bg-[#1A1D27] text-white pt-8 pb-16 px-6 lg:px-8 border-b border-[#2C2F3A]">
       <div className="mx-auto max-w-7xl flex flex-col gap-8">

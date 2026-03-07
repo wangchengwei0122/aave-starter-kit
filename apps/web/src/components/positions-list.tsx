@@ -14,29 +14,13 @@ import {
   AppBadge,
   AppSkeleton
 } from "@workspace/ui/components"
+import { useUserPositions } from "@workspace/web3"
 
-interface Position {
-  asset: string
-  symbol: string
-  balanceAmount: string
-  balanceUsd: string
-  apy: string
-  isCollateral?: boolean
-}
+// The hook returns a slightly different shape so we'll adjust the rendering to match it or map it if needed
+// For now, useUserPositions returns simple empty arrays until we do wallet integration
 
 export function PositionsList() {
-  const supplies: Position[] = [
-    {
-      asset: "USDC",
-      symbol: "USDC",
-      balanceAmount: "100.06",
-      balanceUsd: "$100.05",
-      apy: "0.45 %",
-      isCollateral: true,
-    }
-  ]
-
-  const borrows: Position[] = []
+  const { supplies, borrows, isBlocked } = useUserPositions()
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 -mt-8 relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
@@ -75,7 +59,7 @@ export function PositionsList() {
               </AppTableRow>
             </AppTableHeader>
             <AppTableBody>
-              {supplies.map((item) => (
+              {supplies.map((item: any) => (
                 <AppTableRow key={item.asset}>
                   <AppTableCell>
                     <div className="flex items-center gap-2">

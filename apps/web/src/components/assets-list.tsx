@@ -13,41 +13,15 @@ import {
   AppCheckbox,
   AppSkeleton
 } from "@workspace/ui/components"
+import { useAaveMarkets } from "@workspace/web3"
 
 export function AssetsList() {
-  const suppliesToDiscover = [
-    {
-      asset: "Tether",
-      symbol: "USDT",
-      walletBalance: "10,000.00",
-      apy: "< 0.01 %",
-      canBeCollateral: true,
-    },
-    {
-      asset: "USD Coin",
-      symbol: "USDC",
-      walletBalance: "9,900.00",
-      apy: "0.45 %",
-      canBeCollateral: true,
-    }
-  ]
+  const { markets, isLoading, isError } = useAaveMarkets();
 
-  const borrowsToDiscover = [
-    {
-      asset: "Tether",
-      symbol: "USDT",
-      available: "81.71",
-      availableUsd: "$81.72",
-      apy: "0.13 %",
-    },
-     {
-      asset: "USD Coin",
-      symbol: "USDC",
-      available: "81.72",
-      availableUsd: "$81.72",
-      apy: "1.64 %",
-    }
-  ]
+  // For Phase 2, we just render the same data in both tables since we don't have user balances yet
+  // We'll slice the first few just so the UI isn't overwhelmingly long
+  const suppliesToDiscover = markets.slice(0, 5);
+  const borrowsToDiscover = markets.slice(0, 5);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4 mx-auto max-w-7xl px-6 lg:px-8 mb-20">
@@ -74,7 +48,7 @@ export function AssetsList() {
               </AppTableRow>
             </AppTableHeader>
             <AppTableBody>
-              {suppliesToDiscover.map((item) => (
+              {suppliesToDiscover.map((item: any) => (
                 <AppTableRow key={item.symbol}>
                   <AppTableCell>
                     <div className="flex items-center gap-2">
@@ -121,7 +95,7 @@ export function AssetsList() {
               </AppTableRow>
             </AppTableHeader>
             <AppTableBody>
-              {borrowsToDiscover.map((item) => (
+              {borrowsToDiscover.map((item: any) => (
                 <AppTableRow key={item.symbol}>
                   <AppTableCell>
                     <div className="flex items-center gap-2">

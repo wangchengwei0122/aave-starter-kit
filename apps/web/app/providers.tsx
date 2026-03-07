@@ -7,6 +7,7 @@ import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { http } from "viem";
 import { ReactNode } from "react";
+import { AaveProvider } from "@workspace/web3";
 
 // 创建 QueryClient
 function makeQueryClient() {
@@ -54,7 +55,11 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <WagmiProvider config={config as any}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>{children}</RainbowKitProvider>
+        <RainbowKitProvider>
+          <AaveProvider>
+            {children}
+          </AaveProvider>
+        </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );

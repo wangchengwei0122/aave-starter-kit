@@ -11,9 +11,9 @@
 
 ## Phase 0 — Foundation (Docs + First Spec)
 
-- [ ] T0-1 Create DATA_SOURCES.md (Route B truth contract)
-- [ ] T0-2 Create MIGRATION.md (pre-web3/domain isolation)
-- [ ] T0-3 Create specs/dashboard.md (Dashboard contract)
+- [x] T0-1 Create DATA_SOURCES.md (Route B truth contract)
+- [x] T0-2 Create MIGRATION.md (pre-web3/domain isolation)
+- [x] T0-3 Create specs/dashboard.md (Dashboard contract)
 
 ---
 
@@ -29,9 +29,9 @@
 
 ## Phase 2 — Dashboard (P1)
 
-- [ ] T2-1 Create Dashboard page skeleton layout (App\* only, static)
-- [ ] T2-2 Add Summary cards components (static placeholders)
-- [ ] T2-3 Add Positions table block (static)
+- [x] T2-1 Create Dashboard page skeleton layout (App\* only, static)
+- [x] T2-2 Add Summary cards components (static placeholders)
+- [x] T2-3 Add Positions table block (static)
 - [ ] T2-4 Wire `useAaveMarkets()` into Dashboard (read-only, no math)
 - [ ] T2-5 Wire `useUserPositions()` into Dashboard (if available)
 - [ ] T2-6 Mark HealthFactor card as BLOCKED until domain (if SDK doesn’t provide)

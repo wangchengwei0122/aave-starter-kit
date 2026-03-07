@@ -11,6 +11,7 @@ import {
   AppButton,
   AppTokenIcon,
   AppCheckbox,
+  AppSkeleton
 } from "@workspace/ui/components"
 
 export function AssetsList() {
@@ -58,10 +59,7 @@ export function AssetsList() {
         
         <div className="p-4 flex items-center justify-between bg-muted/20">
           <div className="flex items-center gap-2">
-            <AppCheckbox id="show-zero" />
-            <AppText as="label" htmlFor="show-zero" size="sm" tone="muted" className="cursor-pointer">
-              Show assets with 0 balance
-            </AppText>
+            <AppCheckbox label="Show assets with 0 balance" />
           </div>
         </div>
 
@@ -72,7 +70,7 @@ export function AssetsList() {
                 <AppTableHead align="right">Wallet balance</AppTableHead>
                 <AppTableHead align="right">APY</AppTableHead>
                 <AppTableHead align="center">Can be collateral</AppTableHead>
-                <AppTableHead align="right"></AppTableHead>
+                <AppTableHead align="right"><span className="sr-only">Actions</span></AppTableHead>
               </AppTableRow>
             </AppTableHeader>
             <AppTableBody>
@@ -87,18 +85,18 @@ export function AssetsList() {
                     </div>
                   </AppTableCell>
                   <AppTableCell align="right">
-                      <AppText className="font-medium text-foreground text-sm">{item.walletBalance}</AppText>
+                      <AppSkeleton className="h-5 w-16 ml-auto" />
                   </AppTableCell>
                   <AppTableCell align="right">
-                     <AppText className="font-medium text-foreground text-sm">{item.apy}</AppText>
+                     <AppSkeleton className="h-5 w-12 ml-auto" />
                   </AppTableCell>
                   <AppTableCell align="center">
                     {item.canBeCollateral && <span className="text-green-500 font-bold">✓</span>}
                   </AppTableCell>
                   <AppTableCell align="right">
                     <div className="flex items-center justify-end gap-2">
-                      <AppButton intent="primary" size="sm">Supply</AppButton>
-                      <AppButton variant="outline" size="sm">Details</AppButton>
+                      <AppButton variant="primary" size="sm">Supply</AppButton>
+                      <AppButton variant="secondary" size="sm">Details</AppButton>
                     </div>
                   </AppTableCell>
                 </AppTableRow>
@@ -119,7 +117,7 @@ export function AssetsList() {
                 <AppTableHead>Asset</AppTableHead>
                 <AppTableHead align="right">Available</AppTableHead>
                 <AppTableHead align="right">APY, variable</AppTableHead>
-                <AppTableHead align="right"></AppTableHead>
+                <AppTableHead align="right"><span className="sr-only">Actions</span></AppTableHead>
               </AppTableRow>
             </AppTableHeader>
             <AppTableBody>
@@ -134,18 +132,18 @@ export function AssetsList() {
                     </div>
                   </AppTableCell>
                   <AppTableCell align="right">
-                    <div className="flex flex-col">
-                      <AppText className="font-medium text-foreground text-sm">{item.available}</AppText>
-                       <AppText size="xs" tone="muted">{item.availableUsd}</AppText>
+                    <div className="flex flex-col items-end gap-1.5">
+                      <AppSkeleton className="h-5 w-16" />
+                      <AppSkeleton className="h-4 w-12" />
                     </div>
                   </AppTableCell>
                   <AppTableCell align="right">
-                     <AppText className="font-medium text-foreground text-sm">{item.apy}</AppText>
+                     <AppSkeleton className="h-5 w-12 ml-auto" />
                   </AppTableCell>
                   <AppTableCell align="right">
                     <div className="flex items-center justify-end gap-2">
-                      <AppButton variant="outline" size="sm">Borrow</AppButton>
-                      <AppButton variant="outline" size="sm">Details</AppButton>
+                      <AppButton variant="secondary" size="sm">Borrow</AppButton>
+                      <AppButton variant="secondary" size="sm">Details</AppButton>
                     </div>
                   </AppTableCell>
                 </AppTableRow>

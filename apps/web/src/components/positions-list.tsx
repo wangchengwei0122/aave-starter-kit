@@ -11,7 +11,8 @@ import {
   AppButton,
   AppSwitch,
   AppTokenIcon,
-  AppBadge
+  AppBadge,
+  AppSkeleton
 } from "@workspace/ui/components"
 
 interface Position {
@@ -46,17 +47,17 @@ export function PositionsList() {
         </div>
         
         <div className="p-4 border-b border-border flex items-center gap-6">
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1.5">
             <AppText size="sm" tone="muted">Balance</AppText>
-             <AppText size="md" className="font-semibold text-foreground">$100.05</AppText>
+             <AppSkeleton className="h-6 w-16" />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1.5">
             <AppText size="sm" tone="muted">APY</AppText>
-             <AppText size="md" className="font-semibold text-foreground">0.45 %</AppText>
+             <AppSkeleton className="h-6 w-12" />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1.5">
              <AppText size="sm" tone="muted">Collateral</AppText>
-             <AppText size="md" className="font-semibold text-foreground">$100.05</AppText>
+             <AppSkeleton className="h-6 w-16" />
           </div>
         </div>
 
@@ -70,7 +71,7 @@ export function PositionsList() {
                 <AppTableHead align="right">Balance</AppTableHead>
                 <AppTableHead align="right">APY</AppTableHead>
                 <AppTableHead align="center">Collateral</AppTableHead>
-                <AppTableHead align="right"></AppTableHead>
+                <AppTableHead align="right"><span className="sr-only">Actions</span></AppTableHead>
               </AppTableRow>
             </AppTableHeader>
             <AppTableBody>
@@ -96,8 +97,8 @@ export function PositionsList() {
                   </AppTableCell>
                   <AppTableCell align="right">
                     <div className="flex items-center justify-end gap-2">
-                      <AppButton intent="primary" size="sm">Supply</AppButton>
-                      <AppButton variant="outline" size="sm">Withdraw</AppButton>
+                      <AppButton variant="primary" size="sm">Supply</AppButton>
+                      <AppButton variant="secondary" size="sm">Withdraw</AppButton>
                     </div>
                   </AppTableCell>
                 </AppTableRow>

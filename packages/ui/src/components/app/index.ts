@@ -14,3 +14,5 @@ export * from "./app-tooltip"
 export * from "./app-tabs"
 export * from "./app-skeleton"
 export * from "./app-token-icon"
+export * from "./app-badge"
+

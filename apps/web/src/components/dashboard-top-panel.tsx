@@ -1,15 +1,16 @@
 import * as React from "react"
-import { AppText, AppTooltip } from "@workspace/ui/components"
+import { AppText, AppTooltip, AppSkeleton, AppBadge } from "@workspace/ui/components"
 import { Info } from "lucide-react"
 
 interface StatCardProps {
   label: string
-  value: React.ReactNode
+  value?: React.ReactNode
   subValue?: React.ReactNode
   tooltip?: string
+  blocked?: boolean
 }
 
-function StatCard({ label, value, subValue, tooltip }: StatCardProps) {
+function StatCard({ label, value, subValue, tooltip, blocked }: StatCardProps) {
   const labelElement = (
     <div className="flex items-center gap-1.5 text-muted-foreground">
       <AppText size="sm">{label}</AppText>
@@ -25,10 +26,14 @@ function StatCard({ label, value, subValue, tooltip }: StatCardProps) {
     <div className="flex flex-col gap-1">
       {labelElement}
       <div className="flex items-baseline gap-2">
-        <AppText size="md" className="text-xl font-bold font-mono tracking-tight text-foreground">
-          {value}
-        </AppText>
-        {subValue && (
+        {blocked ? (
+          <AppSkeleton className="h-7 w-24 bg-white/10" />
+        ) : (
+          <AppText size="md" className="text-xl font-bold font-mono tracking-tight text-foreground">
+            {value || "—"}
+          </AppText>
+        )}
+        {subValue && !blocked && (
           <AppText size="sm" tone="muted" className="font-mono">
             {subValue}
           </AppText>
@@ -51,24 +56,36 @@ export function DashboardTopPanel() {
           </button>
         </div>
 
+        {/* 
+          Dashboard Spec requires 4 blocks: 
+          Net Worth, Supplied, Borrowed, Health Factor 
+          Currently marked as blocked pending web3 integration (Phase 1).
+        */}
         <div className="flex flex-wrap items-center gap-12">
           <StatCard
             label="Net worth"
-            value="$100.05"
+            blocked
           />
           <StatCard
-            label="Net APY"
-            value="0.45%"
-            tooltip="The net annualized percentage yield considering all your supplies and borrows."
+            label="Total supplied"
+            blocked
+          />
+          <StatCard
+            label="Total borrowed"
+            blocked
           />
           <div className="flex flex-col gap-1">
-            <AppText size="sm" tone="muted">Available rewards</AppText>
-             <div className="flex items-center gap-2">
-               <AppText size="md" className="text-xl font-bold font-mono tracking-tight text-foreground">$0</AppText>
-               <span className="text-[10px] font-bold bg-white/20 px-1.5 py-0.5 rounded text-white/50 uppercase cursor-not-allowed">
-                 Claim
-               </span>
-             </div>
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <AppText size="sm">Health factor</AppText>
+              <AppTooltip content="Represents the safety of your deposited collateral against the borrowed assets and its underlying value.">
+                <Info className="size-3.5 cursor-help" />
+              </AppTooltip>
+            </div>
+            <div className="flex items-center gap-2 mt-0.5">
+              <AppBadge variant="outline" className="bg-white/10 text-white/50 border-transparent">
+                BLOCKED
+              </AppBadge>
+            </div>
           </div>
         </div>
       </div>

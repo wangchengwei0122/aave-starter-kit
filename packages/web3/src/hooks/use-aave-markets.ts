@@ -38,6 +38,12 @@ export function useAaveMarketsQuery() {
       totalSupplied: supplyReserve?.supplyInfo?.total?.value || "0",
       availableToBorrow: borrowReserve?.borrowInfo?.availableLiquidity?.amount?.value || "0",
       canBeCollateral: supplyReserve?.supplyInfo?.canBeCollateral || false,
+      supplyCap: supplyReserve?.supplyInfo?.supplyCap?.amount?.value || "—",
+      borrowCap: borrowReserve?.borrowInfo?.borrowCap?.amount?.value || "—",
+      maxLtv: supplyReserve?.supplyInfo?.maxLTV?.formatted || "—",
+      liquidationThreshold: supplyReserve?.supplyInfo?.liquidationThreshold?.formatted || "—",
+      liquidationPenalty: supplyReserve?.supplyInfo?.liquidationBonus?.formatted || "—",
+      reserveFactor: borrowReserve?.borrowInfo?.reserveFactor?.formatted || "—",
     }
   }) || [];
 

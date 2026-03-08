@@ -40,24 +40,24 @@
 
 ## Phase 3 — Supply Markets (P2)
 
-- [ ] T3-1 Create Supply Markets page skeleton (static)
-- [ ] T3-2 Create MarketTable view model mapping (no formulas)
-- [ ] T3-3 Wire `useAaveMarkets()` to Supply table (read-only)
+- [x] T3-1 Create Supply Markets page skeleton (static)
+- [x] T3-2 Create MarketTable view model mapping (no formulas)
+- [x] T3-3 Wire `useAaveMarkets()` to Supply table (read-only)
 
 ---
 
 ## Phase 4 — Borrow Markets (P3)
 
-- [ ] T4-1 Create Borrow Markets page skeleton (static)
-- [ ] T4-2 Wire `useAaveMarkets()` to Borrow table (read-only)
+- [x] T4-1 Create Borrow Markets page skeleton (static)
+- [x] T4-2 Wire `useAaveMarkets()` to Borrow table (read-only)
 
 ---
 
 ## Phase 5 — Asset Detail (P4)
 
-- [ ] T5-1 Create Asset detail route skeleton (static)
-- [ ] T5-2 Add read-only hook `useReserveDetail(assetId)` (web3 layer)
-- [ ] T5-3 Wire reserve detail data into page
+- [x] T5-1 Create Asset detail route skeleton (static)
+- [x] T5-2 Add read-only hook `useReserveDetail(assetId)` (web3 layer)
+- [x] T5-3 Wire reserve detail data into page
 
 ---
 

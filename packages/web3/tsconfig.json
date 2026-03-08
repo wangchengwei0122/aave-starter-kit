@@ -1,5 +1,5 @@
 {
-  "extends": "@workspace/shared/tsconfig.json",
+  "extends": "../../configs/typescript/base.json",
   "compilerOptions": {
     "target": "es2022",
     "lib": ["es2022", "dom", "dom.iterable"],

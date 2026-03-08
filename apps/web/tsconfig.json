@@ -6,7 +6,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@workspace/ui/*": ["../../packages/ui/src/*"]
+      "@workspace/ui/*": ["../../packages/ui/src/*"],
+      "@workspace/web3": ["../../packages/web3/src/index.ts"],
+      "@workspace/web3/*": ["../../packages/web3/src/*"]
     },
     "plugins": [
       {

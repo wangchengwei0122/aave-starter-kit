@@ -5,5 +5,5 @@ export { AaveProvider } from "./providers/aave-provider"
 export { AAVE_V3_ADDRESSES } from "./constants/addresses"
 
 // Export Data Hooks
-export { useAaveMarkets } from "./hooks/use-aave-markets"
+export { useAaveMarketsQuery as useAaveMarkets } from "./hooks/use-aave-markets"
 export { useUserPositions } from "./hooks/use-user-positions"

@@ -63,15 +63,15 @@
 
 ## Phase 6 — Domain Math + Tests (M3)
 
-- [ ] T6-1 Add `packages/domain` scaffold
-- [ ] T6-2 Add `ray.ts` conversion helpers + unit tests
-- [ ] T6-3 Add `health-factor.ts` pure function + unit tests (only if needed)
+- [x] T6-1 Add `packages/domain` scaffold (Skipped: using SDK formatters)
+- [x] T6-2 Add `ray.ts` conversion helpers (Skipped: using `@aave/math-utils` or GraphQL pre-formatted values)
+- [x] T6-3 Add `health-factor.ts` pure function (Skipped: using SDK provided values)
 
 ---
 
 ## Phase 7 — Transaction Flows (P5)
 
-- [ ] T7-1 Add Supply modal skeleton (UI only)
-- [ ] T7-2 Add Borrow modal skeleton (UI only)
-- [ ] T7-3 Add Repay/Withdraw modal skeleton (UI only)
-- [ ] T7-4 Add tx execution adapter (web3 layer) + UI states
+- [x] T7-1 Add Supply modal skeleton (UI only)
+- [x] T7-2 Add Borrow modal skeleton (UI only)
+- [x] T7-3 Add Repay/Withdraw modal skeleton (UI only)
+- [x] T7-4 Add tx execution adapter (web3 layer) + UI states
